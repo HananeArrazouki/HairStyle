@@ -1,0 +1,7 @@
+{
+  "name": "HairStyle",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
