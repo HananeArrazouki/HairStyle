@@ -25,3 +25,14 @@
 #container a {
   text-decoration: none;
 }
+.ripple-parent {
+  position: relative;
+  overflow: hidden;
+
+  border: 1px solid #ddd;
+}
+.circle {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+}
