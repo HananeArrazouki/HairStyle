@@ -6,72 +6,9 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-        <!---->
-        <ion-button class="ion-activatable ripple-parent circle" color="light">
-          <ion-img src="./../../assets/icon_menu/pelu.png"></ion-img>
-          <ion-ripple-effect></ion-ripple-effect>
-        </ion-button><br>
-        <ion-label>Hairdressing</ion-label>
-      </ion-col>
-        <!---->
-      <ion-col>
-        <ion-button class="ion-activatable ripple-parent circle" color="light">
-          <ion-img src="./../../assets/icon_menu/pelu.png"></ion-img>
-          <ion-ripple-effect></ion-ripple-effect>
-        </ion-button><br>
-        <ion-label>Nail salon</ion-label>
-      </ion-col>
-        <!---->
-      <ion-col>
-        <ion-button class="ion-activatable ripple-parent circle" color="light">
-          <ion-img src="./../../assets/icon_menu/pelu.png"></ion-img>
-          <ion-ripple-effect></ion-ripple-effect>
-        </ion-button><br>
-        <ion-label>Eyebrows and Eyelashes</ion-label>
-      </ion-col>
-        <!---->
-      <ion-col>
-        <ion-button class="ion-activatable ripple-parent circle" color="light">
-          <ion-img src="./../../assets/icon_menu/pelu.png"></ion-img>
-          <ion-ripple-effect></ion-ripple-effect>
-        </ion-button><br>
-        <ion-label>Massages</ion-label>
-      </ion-col>
-        <!---->
-        <ion-col>
-          <ion-button class="ion-activatable ripple-parent circle" color="light">
-            <ion-img src="./../../assets/icon_menu/pelu.png"></ion-img>
-            <ion-ripple-effect></ion-ripple-effect>
-          </ion-button><br>
-          <ion-label>Make-up</ion-label>
-        </ion-col>
-          <!---->
-      <ion-col>
-        <ion-button class="ion-activatable ripple-parent circle" color="light">
-          <ion-img src="./../../assets/icon_menu/pelu.png"></ion-img>
-          <ion-ripple-effect></ion-ripple-effect>
-        </ion-button><br>
-        <ion-label>Spa</ion-label>
-      </ion-col>
-        <!---->
-        <ion-col>
-          <ion-button class="ion-activatable ripple-parent circle" color="light">
-            <ion-img src="./../../assets/icon_menu/pelu.png"></ion-img>
-            <ion-ripple-effect></ion-ripple-effect>
-          </ion-button><br>
-            <ion-label>Waxing</ion-label>          
-        </ion-col>
-    </ion-row>
-  </ion-grid>
-    
+<ion-content>
+    <app-salon-options  *ngFor="let option of getSalonOptions()" [options]="option"></app-salon-options>
 </ion-content>
+
+
+

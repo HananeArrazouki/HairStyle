@@ -1,0 +1,19 @@
+
+<ion-app>
+  <ion-content>
+    <ion-card>
+      
+      <ion-slides [options]="slideOptns">
+        <ion-slide>
+          <ion-button class="ion-activatable ripple-parent circle" color="light">
+            <img src="{{option.image}}"/>
+          </ion-button>
+          <ion-label>{{option.name}}</ion-label> 
+          <ion-ripple-effect></ion-ripple-effect>
+        </ion-slide>
+      </ion-slides>
+    </ion-card>
+  </ion-content>
+</ion-app>
+
+
