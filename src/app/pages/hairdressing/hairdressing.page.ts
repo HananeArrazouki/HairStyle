@@ -16,5 +16,9 @@ export class HairdressingPage{
     return this._hairDressingService.getHairDressingOptions()
   }
 
+  gethairDressingOptionsById(id: number) {
+    return this._hairDressingService.getHairDressingOptionsById(id)
+  }
+
 
 }

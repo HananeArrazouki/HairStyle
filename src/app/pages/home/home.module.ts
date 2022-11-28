@@ -11,9 +11,6 @@ import { CoreModule } from '../../core/core.module';
     declarations: [HomePage],
     imports: [
         CoreModule,
-        CommonModule,
-        FormsModule,
-        IonicModule,
         HomePageRoutingModule,
         
     ],

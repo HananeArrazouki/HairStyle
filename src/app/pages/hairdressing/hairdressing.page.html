@@ -1,9 +1,11 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>hairdressing</ion-title>
+    <ion-title style="text-align: center;">hairdressing</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content>  
+  <ion-list>
+    <app-hairdressing *ngFor="let option of gethairDressingOptions()" [hairdressing]="option"></app-hairdressing>
+  </ion-list>
 </ion-content>

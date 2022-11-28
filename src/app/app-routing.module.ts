@@ -15,6 +15,14 @@ const routes: Routes = [
     path: 'hairdressing',
     loadChildren: () => import('./pages/hairdressing/hairdressing.module').then( m => m.HairdressingPageModule)
   },
+  {
+    path: 'makeup',
+    loadChildren: () => import('./pages/makeup/makeup.module').then( m => m.MakeupPageModule)
+  },
+  {
+    path: 'nails',
+    loadChildren: () => import('./pages/nails/nails.module').then( m => m.NailsPageModule)
+  },
 ];
 
 @NgModule({

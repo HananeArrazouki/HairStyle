@@ -34,10 +34,6 @@ export class HomePage {
     }
   }
 
-  btn1() {
-    console.log("hanane");
-    alert("hanane2");
-  }
 
 
 }

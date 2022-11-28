@@ -1,3 +1,10 @@
-<p>
-  hairdressing works!
-</p>
+<ion-item>
+  
+  <ion-avatar class="imagen">
+    <ion-img *ngIf="!hairdressingOption.image" src="/assets/pelu.png"></ion-img>
+    <ion-img *ngIf="hairdressingOption.image" [src]="hairdressingOption.image"></ion-img>
+  </ion-avatar>
+
+  <ion-label>{{hairdressingOption.name}} {{hairdressingOption.price}}</ion-label>
+
+</ion-item>

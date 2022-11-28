@@ -33,8 +33,12 @@ export class HairdressingService {
     },
   ]
 
-  getHairDressingOptions(): Hairdressing[] {
+  public getHairDressingOptions(): Hairdressing[] {
     return this._hairDressingOptions;
+  }
+
+  public getHairDressingOptionsById(id: number) {
+    return this._hairDressingOptions.find(op => op.id == id)
   }
 
   constructor() { }
