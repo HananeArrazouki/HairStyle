@@ -1,0 +1,83 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      <ion-img src="/assets/icon_menu/HairStyle4.png"></ion-img>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-slides [options]="slideOptns">
+    <ion-slide *ngFor="let option of getSalonOptions()">
+      <ion-button class="ion-activatable ripple-parent circle" color="light" (click)="onNewItem()">
+        <img src="{{option.image}}"/>
+      </ion-button>
+      <ion-label>{{option.name}}</ion-label> 
+      
+      <ion-ripple-effect></ion-ripple-effect>
+    </ion-slide>
+    <app-hairdressing  *ngIf="item == 'Hair Dressing'"></app-hairdressing>
+  </ion-slides>
+</ion-content>
+
+<ion-app>
+  <ion-tabs>
+    <ion-tab-bar slot="bottom">
+      <ion-tab-button tab="schedule">
+        <ion-icon name="cut-sharp"></ion-icon>
+        <ion-label>HairDressing</ion-label>
+      </ion-tab-button>
+  
+      <ion-tab-button tab="speakers">
+        <ion-icon name=""></ion-icon>
+        <ion-label>Nails</ion-label>
+      </ion-tab-button>
+  
+      <ion-tab-button tab="map">
+        <ion-icon name=""></ion-icon>
+        <ion-label>MakeUp</ion-label>
+      </ion-tab-button>
+
+      <ion-tab-button tab="map">
+        <ion-icon name="calendar-sharp"></ion-icon>
+        <ion-label>Appointment</ion-label>
+        <ion-badge>1</ion-badge>
+      </ion-tab-button>
+  
+      <ion-tab-button tab="about">
+        <ion-icon name="home-sharp"></ion-icon>
+        <ion-label>Home</ion-label>
+      </ion-tab-button>
+
+    </ion-tab-bar>
+  </ion-tabs>
+</ion-app>
+
+<!-- <ion-content>
+    <ion-slides [options]="slideOptns">
+      <ion-slide *ngFor="let option of getSalonOptions()">
+        <ion-button class="ion-activatable ripple-parent circle" color="light" (click)="onNewItem()">
+          <img src="{{option.image}}"/>
+        </ion-button>
+        <ion-label>{{option.name}}</ion-label> 
+        
+        <ion-ripple-effect></ion-ripple-effect>
+      </ion-slide>
+      <app-hairdressing  *ngIf="item == 'Hair Dressing'"></app-hairdressing>
+    </ion-slides>
+
+    <ion-slides [options]="slideOptns">
+      <ion-slide>
+        <ion-button (click)="btn1()" class="ion-activatable ripple-parent circle" color="light">
+          <img src="/assets/icon_menu/pelu.png"/>
+        </ion-button>
+        <ion-label>Hair Dressing</ion-label> 
+        <app-hairdressing  *ngIf="item == 'Hair Dressing'" [routerLink]="['/hairdressing']"></app-hairdressing>
+        <ion-ripple-effect></ion-ripple-effect>
+      </ion-slide>     
+    </ion-slides>
+    
+</ion-content> -->
+
+
+

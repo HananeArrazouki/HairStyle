@@ -3,12 +3,14 @@ import { CommonModule } from '@angular/common';
 import { SalonOptionsComponent } from './components/salon-options/salon-options.component';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HairdressingComponent } from './components/hairdressing/hairdressing.component';
 
 
 
 @NgModule({
   declarations: [
-    SalonOptionsComponent
+    SalonOptionsComponent,
+    HairdressingComponent
   ],
   imports: [
     CommonModule,
@@ -17,7 +19,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
   ],
   exports: [
-    SalonOptionsComponent
+    SalonOptionsComponent,
+    HairdressingComponent
   ]
 })
 export class CoreModule { }

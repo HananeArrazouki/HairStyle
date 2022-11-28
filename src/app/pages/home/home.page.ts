@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SalonOptionsService } from '../core/services/salon-options.service';
+import { SalonOptionsService } from '../../core/services/salon-options.service';
 
 @Component({
   selector: 'app-home',
@@ -7,13 +7,6 @@ import { SalonOptionsService } from '../core/services/salon-options.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-
-    // servicesList: String[] = [
-    //             "Hairdressing",
-    //             "Nail salon",
-    //             "Make-up",
-    //             "Spa"
-    // ]
 
     slideOptns= {
       initialSlide: 1,
@@ -28,5 +21,23 @@ export class HomePage {
     }
 
   constructor(private _salonOptionsService : SalonOptionsService) {}
+
+  public item : string = ""
+  onNewItem() {
+    switch(this.item) {
+      case 'Home':
+        break;
+      case 'Hair Dressing':
+        break;
+      default:
+
+    }
+  }
+
+  btn1() {
+    console.log("hanane");
+    alert("hanane2");
+  }
+
 
 }
