@@ -1,15 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { MakeupService } from 'src/app/core/services/makeup.service';
 
 @Component({
-  selector: 'app-makeup',
+  selector: 'app-makeup-page',
   templateUrl: './makeup.page.html',
   styleUrls: ['./makeup.page.scss'],
 })
-export class MakeupPage implements OnInit {
+export class MakeupPage {
 
-  constructor() { }
+  constructor(
+    private _makeUpService : MakeupService
+  ) { }
 
-  ngOnInit() {
+  getMakeupOptions() {
+    return this._makeUpService.getMakeupOptions()
+  }
+
+  getMakeupOptionsById(id: number) {
+    return this._makeUpService.getMakeupOptionsById(id)
   }
 
 }

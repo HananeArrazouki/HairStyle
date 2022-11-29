@@ -1,3 +1,10 @@
-<p>
-  nails works!
-</p>
+<ion-item>
+  
+  <ion-avatar class="imagen" slot="start">
+    <ion-img *ngIf="!nailsOption.image" src="/assets/makeup.png"></ion-img>
+    <ion-img *ngIf="nailsOption.image" [src]="nailsOption.image"></ion-img>
+  </ion-avatar>
+
+  <ion-label>{{nailsOption.name | titlecase}} <p>{{nailsOption.price | currency: 'EUR'}}</p> </ion-label>
+  
+</ion-item>

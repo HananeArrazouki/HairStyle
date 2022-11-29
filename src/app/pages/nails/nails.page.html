@@ -4,6 +4,8 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content>  
+  <ion-list>
+    <app-nails *ngFor="let option of getNailsOptions()" [nails]="option"></app-nails>
+  </ion-list>
 </ion-content>

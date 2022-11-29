@@ -27,5 +27,13 @@ export class NailsService {
     },
   ]
 
+  public getNailsOptions(): Nails[] {
+    return this._nailsOptions;
+  }
+
+  public getNailsOptionsById(id: number) {
+    return this._nailsOptions.find(op => op.id == id)
+  }
+
   constructor() { }
 }

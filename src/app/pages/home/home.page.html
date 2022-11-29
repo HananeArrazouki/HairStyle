@@ -13,40 +13,9 @@
         <img src="{{option.image}}"/>
       </ion-button>
       <ion-label>{{option.name}}</ion-label> 
-      
-      <ion-ripple-effect></ion-ripple-effect>
+      <!-- <ion-ripple-effect></ion-ripple-effect> -->
     </ion-slide>
     <app-hairdressing  *ngIf="item == 'Hair Dressing'"></app-hairdressing>
   </ion-slides>
 </ion-content>
-
-
-
-<!-- <ion-content>
-    <ion-slides [options]="slideOptns">
-      <ion-slide *ngFor="let option of getSalonOptions()">
-        <ion-button class="ion-activatable ripple-parent circle" color="light" (click)="onNewItem()">
-          <img src="{{option.image}}"/>
-        </ion-button>
-        <ion-label>{{option.name}}</ion-label> 
-        
-        <ion-ripple-effect></ion-ripple-effect>
-      </ion-slide>
-      <app-hairdressing  *ngIf="item == 'Hair Dressing'"></app-hairdressing>
-    </ion-slides>
-
-    <ion-slides [options]="slideOptns">
-      <ion-slide>
-        <ion-button (click)="btn1()" class="ion-activatable ripple-parent circle" color="light">
-          <img src="/assets/icon_menu/pelu.png"/>
-        </ion-button>
-        <ion-label>Hair Dressing</ion-label> 
-        <app-hairdressing  *ngIf="item == 'Hair Dressing'" [routerLink]="['/hairdressing']"></app-hairdressing>
-        <ion-ripple-effect></ion-ripple-effect>
-      </ion-slide>     
-    </ion-slides>
-    
-</ion-content> -->
-
-
 

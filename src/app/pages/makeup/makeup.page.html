@@ -1,9 +1,11 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>makeup</ion-title>
+    <ion-title>MakeUp</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content>  
+  <ion-list>
+    <app-makeup *ngFor="let option of getMakeupOptions()" [makeup]="option"></app-makeup>
+  </ion-list>
 </ion-content>

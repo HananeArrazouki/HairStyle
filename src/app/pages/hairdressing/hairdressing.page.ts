@@ -2,7 +2,7 @@ import { Component} from '@angular/core';
 import { HairdressingService } from 'src/app/core/services/hairdressing.service';
 
 @Component({
-  selector: 'app-hairdressing',
+  selector: 'app-hairdressing-page',
   templateUrl: './hairdressing.page.html',
   styleUrls: ['./hairdressing.page.scss'],
 })
