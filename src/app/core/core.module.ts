@@ -6,6 +6,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HairdressingComponent } from './components/hairdressing/hairdressing.component';
 import { NailsComponent } from './components/nails/nails.component';
 import { MakeupComponent } from './components/makeup/makeup.component';
+import { HairdressingSelectableComponent } from './components/hairdressing-selectable/hairdressing-selectable.component';
+import { NailsSelectableComponent } from './components/nails-selectable/nails-selectable.component';
+import { MakeupSelectableComponent } from './components/makeup-selectable/makeup-selectable.component';
 
 
 
@@ -14,7 +17,10 @@ import { MakeupComponent } from './components/makeup/makeup.component';
     SalonOptionsComponent,
     HairdressingComponent,
     NailsComponent,
-    MakeupComponent
+    MakeupComponent,
+    HairdressingSelectableComponent,
+    NailsSelectableComponent,
+    MakeupSelectableComponent
   ],
   imports: [
     CommonModule,
@@ -30,7 +36,10 @@ import { MakeupComponent } from './components/makeup/makeup.component';
     SalonOptionsComponent,
     HairdressingComponent,
     NailsComponent,
-    MakeupComponent
+    MakeupComponent,
+    HairdressingSelectableComponent,
+    NailsSelectableComponent,
+    MakeupSelectableComponent
   ]
 })
 export class CoreModule { }

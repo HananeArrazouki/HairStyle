@@ -1,9 +1,9 @@
 <ion-item>
   
-  <ion-avatar class="imagen" slot="start">
+  <ion-thumbnail  class="imagen" slot="start">
     <ion-img *ngIf="!makeupOption.image" src="/assets/makeup.png"></ion-img>
     <ion-img *ngIf="makeupOption.image" [src]="makeupOption.image"></ion-img>
-  </ion-avatar>
+  </ion-thumbnail >
 
   <ion-label>{{makeupOption.name | titlecase}} <p>{{makeupOption.price | currency: 'EUR'}}</p> </ion-label>
   

@@ -37,8 +37,8 @@ export class HairdressingService {
     return this._hairDressingOptions;
   }
 
-  public getHairDressingOptionsById(id: number) {
-    return this._hairDressingOptions.find(op => op.id == id)
+  public getHairDressingOptionsById(id: number):(Hairdressing | undefined) {
+    return this._hairDressingOptions.find(op => op.id == id);
   }
 
   constructor() { }

@@ -23,6 +23,10 @@ const routes: Routes = [
     path: 'nails',
     loadChildren: () => import('./pages/nails/nails.module').then( m => m.NailsPageModule)
   },
+  {
+    path: 'appointments',
+    loadChildren: () => import('./pages/appointments/appointments.module').then( m => m.AppointmentsPageModule)
+  },
 ];
 
 @NgModule({

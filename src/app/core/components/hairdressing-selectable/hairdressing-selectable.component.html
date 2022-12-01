@@ -1,0 +1,12 @@
+
+<ion-item slot="header" color="light">
+  <ng-container *ngIf="hairdressingSelected != null">
+    <ion-thumbnail slot="start" *ngIf="!hairdressingSelected.image">
+      <img src="/assets/pelu.png">
+    </ion-thumbnail>
+    <ion-thumbnail slot="start" *ngIf="hairdressingSelected.image">
+      <img [src]="hairdressingSelected.image" />
+    </ion-thumbnail>
+    <ion-label>{{hairdressingSelected.name}} {{hairdressingSelected.price}}</ion-label>
+  </ng-container>
+</ion-item>
