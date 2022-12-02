@@ -5,7 +5,16 @@
 </ion-header>
 
 <ion-content>  
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="onNewhairdressingOption()">
+      <ion-icon name="add-sharp" ></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
   <ion-list>
-    <app-hairdressing *ngFor="let option of gethairDressingOptions()" [hairdressing]="option"></app-hairdressing>
+    <app-hairdressing 
+    *ngFor="let option of gethairDressingOptions()" 
+    [hairdressing]="option"
+    (onDelete)="onDeleteHairdressingOption($event)"
+    (onEdit)="onEditHairdressingOption($event)"></app-hairdressing>
   </ion-list>
 </ion-content>

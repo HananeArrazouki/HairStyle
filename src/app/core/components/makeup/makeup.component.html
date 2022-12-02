@@ -1,11 +1,18 @@
 <ion-item>
   
   <ion-thumbnail  class="imagen" slot="start">
-    <ion-img *ngIf="!makeupOption.image" src="/assets/makeup.png"></ion-img>
-    <ion-img *ngIf="makeupOption.image" [src]="makeupOption.image"></ion-img>
+    <ion-img *ngIf="!makeup.image" src="/assets/makeup.png"></ion-img>
+    <ion-img *ngIf="makeup.image" [src]="makeup.image"></ion-img>
   </ion-thumbnail >
 
-  <ion-label>{{makeupOption.name | titlecase}} <p>{{makeupOption.price | currency: 'EUR'}}</p> </ion-label>
+  <ion-label>{{makeup.name | titlecase}} <p>{{makeup.price | currency: 'EUR'}}</p> </ion-label>
   
+  <ion-button (click)="onEditClick()" fill="clear" color="success" slot="end">
+    <ion-icon name="create-sharp"></ion-icon>
+  </ion-button>
+
+  <ion-button (click)="onDeleteClick()" fill="clear" color="danger">
+    <ion-icon name="trash-sharp"></ion-icon>
+  </ion-button>
 
 </ion-item>

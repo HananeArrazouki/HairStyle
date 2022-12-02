@@ -5,7 +5,16 @@
 </ion-header>
 
 <ion-content>  
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="onNewMakeupOption()">
+      <ion-icon name="add-sharp" ></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
   <ion-list>
-    <app-makeup *ngFor="let option of getMakeupOptions()" [makeup]="option"></app-makeup>
+    <app-makeup 
+    *ngFor="let option of getMakeupOptions()" 
+    [makeup]="option"
+    (onDelete)="onDeleteMakeupOption($event)"
+    (onEdit)="onEditMakeupOption($event)"></app-makeup>
   </ion-list>
 </ion-content>

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { Makeup } from '../interfaces/makeup';
 
 @Injectable({
@@ -38,12 +39,39 @@ export class MakeupService {
     },
   ]
 
+  id : number = this._makeupOptions.length + 1
+  private _makeupSubject: BehaviorSubject<Makeup[]> = new BehaviorSubject(this._makeupOptions)
+  public makeupOptionsList$ = this._makeupSubject.asObservable();
+
+
   public getMakeupOptions(): Makeup[] {
     return this._makeupOptions;
   }
 
-  public getMakeupOptionsById(id: number) {
+  public getMakeupOptionsById(id: number):(Makeup | undefined) {
     return this._makeupOptions.find(op => op.id == id)
+  }
+
+  addMakeupOption(makeup: Makeup) {
+    makeup.id = this.id++;
+    this._makeupOptions.push(makeup)
+    this._makeupSubject.next(this._makeupOptions)
+  }
+
+  updateMakeupOption(makeup: Makeup){
+    var updatedMakeupOption = this._makeupOptions.find(p => p.id == makeup.id)
+    if(updatedMakeupOption){
+      updatedMakeupOption.name = makeup.name
+      updatedMakeupOption.price = makeup.price
+      updatedMakeupOption.image = makeup.image
+    }   
+    this._makeupSubject.next(this._makeupOptions)
+  }
+
+  //Delete an option of the MakeUp.
+  deleteMakeupOptionById(id: number) {
+    this._makeupOptions = this._makeupOptions.filter(p => p.id != id);
+    this._makeupSubject.next(this._makeupOptions)
   }
 
   constructor() { }

@@ -9,6 +9,9 @@ import { MakeupComponent } from './components/makeup/makeup.component';
 import { HairdressingSelectableComponent } from './components/hairdressing-selectable/hairdressing-selectable.component';
 import { NailsSelectableComponent } from './components/nails-selectable/nails-selectable.component';
 import { MakeupSelectableComponent } from './components/makeup-selectable/makeup-selectable.component';
+import { HairdressingFormComponent } from './components/hairdressing-form/hairdressing-form.component';
+import { NailsFormComponent } from './components/nails-form/nails-form.component';
+import { MakeupFormComponent } from './components/makeup-form/makeup-form.component';
 
 
 
@@ -20,7 +23,10 @@ import { MakeupSelectableComponent } from './components/makeup-selectable/makeup
     MakeupComponent,
     HairdressingSelectableComponent,
     NailsSelectableComponent,
-    MakeupSelectableComponent
+    MakeupSelectableComponent,
+    HairdressingFormComponent,
+    NailsFormComponent,
+    MakeupFormComponent
   ],
   imports: [
     CommonModule,
@@ -39,7 +45,10 @@ import { MakeupSelectableComponent } from './components/makeup-selectable/makeup
     MakeupComponent,
     HairdressingSelectableComponent,
     NailsSelectableComponent,
-    MakeupSelectableComponent
+    MakeupSelectableComponent,
+    HairdressingFormComponent,
+    NailsFormComponent,
+    MakeupFormComponent
   ]
 })
 export class CoreModule { }

@@ -1,11 +1,69 @@
 <ion-item>
-  
   <ion-thumbnail  class="imagen" slot="start">
-    <ion-img *ngIf="!hairdressingOption.image" src="/assets/pelu.png"></ion-img>
-    <ion-img *ngIf="hairdressingOption.image" [src]="hairdressingOption.image"></ion-img>
+    <ion-img *ngIf="!hairdressing.image" src="/assets/pelu.png"></ion-img>
+    <ion-img *ngIf="hairdressing.image" [src]="hairdressing.image"></ion-img>
   </ion-thumbnail >
 
-  <ion-label>{{hairdressingOption.name | titlecase}} <p>{{hairdressingOption.price | currency}}</p> </ion-label>
-  
+  <ion-label>{{hairdressing.name | titlecase}} <p>{{hairdressing.price | currency}}</p> </ion-label>
+
+
+  <ion-button (click)="onEditClick()" fill="clear" color="success" slot="end">
+    <ion-icon name="create-sharp"></ion-icon>
+  </ion-button>
+
+  <ion-button (click)="onDeleteClick()" fill="clear" color="danger">
+    <ion-icon name="trash-sharp"></ion-icon>
+  </ion-button>
 
 </ion-item>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <ion-card>
+  <ion-card-content>
+    <ion-list>
+      <ion-item>
+        <ion-thumbnail  class="imagen" slot="start">
+          <ion-img *ngIf="!hairdressingOption.image" src="/assets/pelu.png"></ion-img>
+          <ion-img *ngIf="hairdressingOption.image" [src]="hairdressingOption.image"></ion-img>
+        </ion-thumbnail >
+      
+        <ion-label>{{hairdressingOption.name | titlecase}} <p>{{hairdressingOption.price | currency}}</p> </ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-card-content>
+</ion-card>
+
+
+<ion-content>
+  <ion-fab vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button color="light" size="small">
+      <ion-icon name="ellipsis-vertical-sharp"></ion-icon>
+    </ion-fab-button>
+
+    <ion-list>
+      <ion-fab-button fill="clear" color="success">
+        <ion-icon  name="create-sharp"></ion-icon>
+      </ion-fab-button>
+
+      <ion-fab-button fill="clear" color="danger">
+        <ion-icon name="trash-sharp"></ion-icon>
+      </ion-fab-button>
+    </ion-list>
+  </ion-fab>
+</ion-content>
+ -->
