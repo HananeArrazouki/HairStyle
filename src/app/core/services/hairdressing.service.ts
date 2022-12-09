@@ -22,7 +22,7 @@ export class HairdressingService {
     },
     {
       id: 3,
-      name: "professional colour",
+      name: "professional color",
       price: 34.99,
       image: "/assets/icon_menu/professionalColour.png"
     },

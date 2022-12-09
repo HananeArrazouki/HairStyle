@@ -1,8 +1,8 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>{{mode=="New"?"addHairdressing":"modifyHairdressing"}}</ion-title>
+    <ion-title>{{(mode=="New"?"hairDressing.addHairdressing":"hairDressing.modifyHairdressing") | translate}}</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="onDismiss()">Close</ion-button>
+      <ion-button (click)="onDismiss()">{{'form.close' | translate}}</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -10,14 +10,14 @@
 <ion-content class="ion-padding">
   <form [formGroup]="form" (ngSubmit)="onSubmit()" (keyup.enter)="onSubmit()">
     <ion-item>
-      <ion-label position="floating">Name</ion-label>
-      <ion-input type="text" placeholder="Enter the name" formControlName="name"></ion-input>
+      <ion-label position="floating">{{'form.name' | translate}}</ion-label>
+      <ion-input type="text" placeholder="{{'form.enterName' | translate}}" formControlName="name"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label position="floating">Price</ion-label>
-      <ion-input type="text" placeholder="Enter the price" formControlName="price"></ion-input>
+      <ion-label position="floating">{{'form.price' | translate}}</ion-label>
+      <ion-input type="text" placeholder="{{'form.enterPrice' | translate}}" formControlName="price"></ion-input>
     </ion-item>
 
-    <ion-button [disabled]="!form.valid" type="submit">{{mode=="New"?"add":"modify"}}</ion-button>
+    <ion-button [disabled]="!form.valid" type="submit">{{(mode=="New"?"form.add":"form.modify") | translate}}</ion-button>
   </form>
 </ion-content>

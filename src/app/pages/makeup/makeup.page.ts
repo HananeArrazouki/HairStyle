@@ -19,7 +19,7 @@ export class MakeupPage {
     private modalController : ModalController) { }
 
   getMakeupOptions() {
-    return this._makeUpService.getMakeupOptions()
+    return this._makeUpService.makeupOptionsList$
   }
 
   getMakeupOptionsById(id: number) {

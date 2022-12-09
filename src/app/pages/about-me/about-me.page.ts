@@ -13,7 +13,7 @@ export class AboutMePage {
   ) { }
   
   getAboutMeInformations() {
-    this._aboutmeService.getAboutme()
+    this._aboutmeService.aboutMeList$
   }
 
 }

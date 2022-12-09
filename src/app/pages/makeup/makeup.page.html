@@ -12,7 +12,7 @@
   </ion-fab>
   <ion-list>
     <app-makeup 
-    *ngFor="let option of getMakeupOptions()" 
+    *ngFor="let option of getMakeupOptions() | async" 
     [makeup]="option"
     (onDelete)="onDeleteMakeupOption($event)"
     (onEdit)="onEditMakeupOption($event)"></app-makeup>

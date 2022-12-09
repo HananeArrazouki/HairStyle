@@ -12,7 +12,7 @@
   </ion-fab>
   <ion-list>
     <app-nails 
-    *ngFor="let option of getNailsOptions()" 
+    *ngFor="let option of getNailsOptions() | async" 
     [nails]="option"
     (onDelete)="onDeleteNailsOption($event)"
     (onEdit)="onEditNailsOption($event)"></app-nails>

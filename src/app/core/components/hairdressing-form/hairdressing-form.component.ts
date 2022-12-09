@@ -15,10 +15,10 @@ export class HairdressingFormComponent {
 
   @Input('hairdressing') set hairdressing(hairdressing: Hairdressing) {
     if (hairdressing) {
-      // this.form.controls.id.setValue(hairdressing.id);
-      // this.form.controls.name.setValue(hairdressing.name);
-      // this.form.controls.price.setValue(hairdressing.price);
-      // this.form.controls.image.setValue(hairdressing.image);
+      this.form.controls['id'].setValue(hairdressing.id);
+      this.form.controls['name'].setValue(hairdressing.name);
+      this.form.controls['price'].setValue(hairdressing.price);
+      this.form.controls['image'].setValue(hairdressing.image);
       this.mode = "Edit";
     }
   }

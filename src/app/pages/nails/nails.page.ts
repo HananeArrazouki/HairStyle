@@ -17,7 +17,7 @@ export class NailsPage {
     private alertController : AlertController) { }
 
   getNailsOptions() {
-    return this._nailsService.getNailsOptions()
+    return this._nailsService.nailsOptionsList$
   }
 
   getNailsOptionsById(id: number) {

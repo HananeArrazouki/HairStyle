@@ -19,8 +19,7 @@ export class HairdressingPage{
     private alertController : AlertController) { }
 
   gethairDressingOptions() {
-    return this._hairdressingService.getHairDressingOptions()
-    //DUDA: al poner el observable da error!!!
+    return this._hairdressingService.hairdressingOptionsList$
   }
 
   gethairDressingOptionsById(id: number) {
@@ -65,7 +64,6 @@ export class HairdressingPage{
       }
     });
   }
-
 
   onDeleteHairdressingOption(hairdressing : Hairdressing) {
     this.onDeleteAlert(hairdressing)
