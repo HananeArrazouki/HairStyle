@@ -1,14 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Aboutme } from '../../interfaces/aboutme';
 
 @Component({
   selector: 'app-aboutme',
   templateUrl: './aboutme.component.html',
   styleUrls: ['./aboutme.component.scss'],
 })
-export class AboutmeComponent implements OnInit {
+export class AboutmeComponent {
 
   constructor() { }
 
-  ngOnInit() {}
+  @Input() aboutme : Aboutme = {id: 1, name: "", image: ""}
+
 
 }

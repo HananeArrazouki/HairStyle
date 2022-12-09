@@ -1,0 +1,33 @@
+{
+          "hairDressing": {
+                    "addHairdressing": "Añadir peluquería",
+                    "modifyHairdressing": "Modificar peluquería"
+          }  ,  
+          "nails": {                    
+                    "addNails": "Añadir Uñas",
+                    "modifyNails": "Modificar Uñas"
+          },
+          "makeUp": {                    
+                    "addMakeup": "ñadir Maquillaje",
+                    "modifyMakeup": "Modify Maquillaje"
+          },
+          "form": {
+                    "enterName": "Introduce el nombre",
+                    "enterPrice": "Introduce el precio",
+                    "name": "Nombre",
+                    "price": "Precio",
+                    "modify": "Modificar",
+                    "add": "Añadir",
+                    "close": "Cerrar",
+                    "Confirm": "Confirmar",
+                    "cancel": "Cancelar"
+          },
+          "menu": {
+                    "hairDressing": "peluquería",
+                    "nails": "Uñas",
+                    "home": "Inicio",
+                    "makeup": "Maquillaje",
+                    "appointments": "Citas",
+                    "aboutme": "Sobre Mí"
+          }
+}

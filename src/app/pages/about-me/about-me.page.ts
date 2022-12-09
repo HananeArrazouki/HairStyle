@@ -1,15 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { AboutmeService } from 'src/app/core/services/aboutme.service';
 
 @Component({
   selector: 'app-about-me',
   templateUrl: './about-me.page.html',
   styleUrls: ['./about-me.page.scss'],
 })
-export class AboutMePage implements OnInit {
+export class AboutMePage {
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(
+    private _aboutmeService: AboutmeService
+  ) { }
+  
+  getAboutMeInformations() {
+    this._aboutmeService.getAboutme()
   }
 
 }

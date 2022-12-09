@@ -1,0 +1,33 @@
+{
+          "hairDressing": {
+                    "addHairdressing": "Add HairDressing",
+                    "modifyHairdressing": "Modify HairDressing"
+          }  ,  
+          "nails": {                    
+                    "addNails": "Add Nails",
+                    "modifyNails": "Modify Nails"
+          },
+          "makeUp": {                    
+                    "addMakeup": "Add Makeup",
+                    "modifyMakeup": "Modify Makeup"
+          },
+          "form": {
+                    "enterName": "Enter the name",
+                    "enterPrice": "Enter the price",
+                    "name": "Name",
+                    "price": "Price",
+                    "modify": "Modify",
+                    "add": "Add",
+                    "close": "Close",
+                    "Confirm": "Confirm",
+                    "cancel": "Cancel"
+          },
+          "menu": {
+                    "hairDressing": "HairDressing",
+                    "nails": "Nails",
+                    "home": "Home",
+                    "makeup": "MakeUp",
+                    "appointments": "Appointments",
+                    "aboutme": "About Me"
+          }
+}

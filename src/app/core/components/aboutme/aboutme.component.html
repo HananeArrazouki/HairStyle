@@ -1,6 +1,9 @@
 <ion-item>
-  <ion-thumbnail slot="start">
-    <ion-img src="./../../../../assets/icon_menu/Hanane.png"></ion-img>
+  <ion-thumbnail  class="imagen" slot="start">
+    <ion-img *ngIf="!aboutme.image" src="/assets/icon_menu/Hanane.png"></ion-img>
+    <ion-img *ngIf="aboutme.image" [src]="aboutme.image"></ion-img>
   </ion-thumbnail >
-  <ion-label>Hanane</ion-label>
+
+  <ion-label>{{aboutme.name | titlecase}} </ion-label>
+
 </ion-item>

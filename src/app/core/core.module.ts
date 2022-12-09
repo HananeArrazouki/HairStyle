@@ -13,7 +13,9 @@ import { HairdressingFormComponent } from './components/hairdressing-form/hairdr
 import { NailsFormComponent } from './components/nails-form/nails-form.component';
 import { MakeupFormComponent } from './components/makeup-form/makeup-form.component';
 import { AboutmeComponent } from './components/aboutme/aboutme.component';
-
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { createTranslateLoader } from './utils/translate';
 
 
 @NgModule({
@@ -28,13 +30,21 @@ import { AboutmeComponent } from './components/aboutme/aboutme.component';
     HairdressingFormComponent,
     NailsFormComponent,
     MakeupFormComponent,
-    AboutmeComponent
+    AboutmeComponent   
   ],
   imports: [
     CommonModule,
     IonicModule.forRoot(), 
     FormsModule, 
     ReactiveFormsModule,
+    HttpClientModule,
+    TranslateModule.forChild({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [HttpClient]
+      }
+    })
   ],
   exports: [
     CommonModule,
@@ -51,7 +61,9 @@ import { AboutmeComponent } from './components/aboutme/aboutme.component';
     HairdressingFormComponent,
     NailsFormComponent,
     MakeupFormComponent,
-    AboutmeComponent
+    AboutmeComponent,
+    HttpClientModule,
+    TranslateModule
   ]
 })
 export class CoreModule { }
