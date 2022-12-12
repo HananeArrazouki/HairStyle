@@ -1,10 +1,10 @@
 <ion-item>
   <ion-thumbnail  class="imagen" slot="start">
-    <ion-img *ngIf="!hairdressing.image" src="./../../../../assets/icon_menu/pelu.png"></ion-img>
+    <ion-img *ngIf="!hairdressing.image" src="/assets/icon_menu/pelu.png"></ion-img>
     <ion-img *ngIf="hairdressing.image" [src]="hairdressing.image"></ion-img>
   </ion-thumbnail >
 
-  <ion-label>{{hairdressing.name | titlecase}} <p>{{hairdressing.price | currency}}</p> </ion-label>
+  <ion-label>{{hairdressing.name | titlecase}} <p>{{hairdressing.price | currency:'EUR'}}</p> </ion-label>
 
 
   <ion-button (click)="onEditClick()" fill="clear" color="success" slot="end">

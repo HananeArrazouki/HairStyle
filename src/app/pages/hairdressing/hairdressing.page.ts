@@ -11,7 +11,7 @@ import { HairdressingService } from 'src/app/core/services/hairdressing.service'
 })
 export class HairdressingPage{
 
-  mode: "Normal" | "Edit" = "Normal";
+  mode: "New" | "Edit" = "New";
 
   constructor(
     private modalController : ModalController,
@@ -26,12 +26,12 @@ export class HairdressingPage{
     return this._hairdressingService.getHairDressingOptionsById(id)
   }
 
-  addHairdressingOption(hairdressing : Hairdressing){
-    this._hairdressingService.addHairdressingOption(hairdressing)
-  }
+  // addHairdressingOption(hairdressing : Hairdressing){
+  //   this._hairdressingService.addHairdressingOption(hairdressing)
+  // }
 
   onNewhairdressingOption(){
-    this.presentHairdressingForm({id: 1, name: "", price: 0, image: ""})
+    this.presentHairdressingForm({id: 0, name: "", price: 0, image: ""})
   }
 
   deleteHairdressingOptionById(id: number) {
@@ -41,6 +41,8 @@ export class HairdressingPage{
   onEditHairdressingOption(hairdressing : Hairdressing) {
       this.presentHairdressingForm(hairdressing)
   }
+
+
 
   async presentHairdressingForm(hairdressing : Hairdressing){
     const modalController = await this.modalController.create({
@@ -54,10 +56,10 @@ export class HairdressingPage{
       if(result && result.data){
         switch(result.data.mode){
           case 'New':
-            this._hairdressingService.addHairdressingOption(result.data.persona);
+            this._hairdressingService.addHairdressingOption(result.data.hairdressing);
             break;
           case 'Edit':
-            this._hairdressingService.updateHairdressingOption(result.data.persona);
+            this._hairdressingService.updateHairdressingOption(result.data.hairdressing);
             break;
           default:
         }

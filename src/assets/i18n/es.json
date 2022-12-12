@@ -29,5 +29,9 @@
                     "makeup": "Maquillaje",
                     "appointments": "Citas",
                     "aboutme": "Sobre Mí"
+          },
+          "messages": {
+                    "onDeleteMessage": "Estas seguro de que quieres borrar",
+                    "onPersonAssignedAlertMessage": "No se puede borrar"
           }
 }

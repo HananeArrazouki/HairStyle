@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { LOCALE_ID, NgModule } from '@angular/core';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import { SalonOptionsComponent } from './components/salon-options/salon-options.component';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -16,7 +16,9 @@ import { AboutmeComponent } from './components/aboutme/aboutme.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { createTranslateLoader } from './utils/translate';
+import es from '@angular/common/locales/es'
 
+registerLocaleData(es)
 
 @NgModule({
   declarations: [
@@ -64,6 +66,11 @@ import { createTranslateLoader } from './utils/translate';
     AboutmeComponent,
     HttpClientModule,
     TranslateModule
-  ]
+  ],
+  providers:[
+    {
+      provide: LOCALE_ID,
+      useValue: 'es'
+    },]
 })
 export class CoreModule { }

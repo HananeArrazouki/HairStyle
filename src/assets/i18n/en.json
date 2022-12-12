@@ -30,4 +30,8 @@
                     "appointments": "Appointments",
                     "aboutme": "About Me"
           }
+          ,"messages": {
+                    "onDeleteMessage": "Are you sure you want to delete",
+                    "onPersonAssignedAlertMessage": "It could not delete."
+          }
 }

@@ -11,7 +11,7 @@ import { MakeupService } from 'src/app/core/services/makeup.service';
 })
 export class MakeupPage {
 
-  mode: "Normal" | "Edit" = "Normal";
+  mode: "New" | "Edit" = "New";
 
   constructor(
     private _makeUpService : MakeupService,
@@ -26,12 +26,12 @@ export class MakeupPage {
     return this._makeUpService.getMakeupOptionsById(id)
   }
 
-  addMakeupOption(makeup : Makeup){
-    this._makeUpService.addMakeupOption(makeup)
-  }
+  // addMakeupOption(makeup : Makeup){
+  //   this._makeUpService.addMakeupOption(makeup)
+  // }
 
   onNewMakeupOption(){
-    this.presentMakeupForm({id: 1, name: "", price: 0, image: ""})
+    this.presentMakeupForm({id: 0, name: "", price: 0, image: ""})
   }
 
   deleteMakeupOptionById(id: number) {
@@ -54,10 +54,10 @@ export class MakeupPage {
       if(result && result.data){
         switch(result.data.mode){
           case 'New':
-            this._makeUpService.addMakeupOption(result.data.persona);
+            this._makeUpService.addMakeupOption(result.data.makeup);
             break;
           case 'Edit':
-            this._makeUpService.updateMakeupOption(result.data.persona);
+            this._makeUpService.updateMakeupOption(result.data.makeup);
             break;
           default:
         }
