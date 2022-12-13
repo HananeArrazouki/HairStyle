@@ -31,7 +31,7 @@ export class MakeupPage {
   // }
 
   onNewMakeupOption(){
-    this.presentMakeupForm({id: 0, name: "", price: 0, image: ""})
+    this.presentMakeupForm(null)
   }
 
   deleteMakeupOptionById(id: number) {
@@ -42,7 +42,7 @@ export class MakeupPage {
       this.presentMakeupForm(makeup)
   }
 
-  async presentMakeupForm(makeup : Makeup){
+  async presentMakeupForm(makeup : Makeup | null){
     const modalController = await this.modalController.create({
       component: MakeupFormComponent,
       componentProps:{

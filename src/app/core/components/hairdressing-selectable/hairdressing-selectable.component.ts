@@ -17,7 +17,7 @@ const PERSON_PROFILE_VALUE_ACCESSOR: any = {
 })
 export class HairdressingSelectableComponent implements ControlValueAccessor {
 
-  hairdressingSelected : Hairdressing | undefined= {id: 0, name: "", price: 0, image: ""}
+  hairdressingSelected : Hairdressing | undefined
   propagateChange = (_:any) => { }
 
   constructor( private hairDressingService: HairdressingService) { }

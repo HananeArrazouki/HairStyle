@@ -15,10 +15,10 @@ export class NailsFormComponent {
 
   @Input('nails') set nails(nails: Nails) {
     if (nails) {
-      // this.form.controls.id.setValue(nails.id);
-      // this.form.controls.name.setValue(nails.name);
-      // this.form.controls.price.setValue(nails.price);
-      // this.form.controls.image.setValue(nails.image);
+      this.form.controls['id'].setValue(nails.id);
+      this.form.controls['name'].setValue(nails.name);
+      this.form.controls['price'].setValue(nails.price);
+      this.form.controls['image'].setValue(nails.image);
       this.mode = "Edit";
     }
   }

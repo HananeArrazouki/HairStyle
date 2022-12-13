@@ -1,8 +1,8 @@
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { CommonModule, registerLocaleData } from '@angular/common';
-import { SalonOptionsComponent } from './components/salon-options/salon-options.component';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SalonOptionsComponent } from './components/salon-options/salon-options.component';
 import { HairdressingComponent } from './components/hairdressing/hairdressing.component';
 import { NailsComponent } from './components/nails/nails.component';
 import { MakeupComponent } from './components/makeup/makeup.component';
@@ -17,6 +17,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { createTranslateLoader } from './utils/translate';
 import es from '@angular/common/locales/es'
+import { DateTimeSelectableComponent } from './components/date-time-selectable/date-time-selectable.component';
+
 
 registerLocaleData(es)
 
@@ -32,7 +34,8 @@ registerLocaleData(es)
     HairdressingFormComponent,
     NailsFormComponent,
     MakeupFormComponent,
-    AboutmeComponent   
+    AboutmeComponent,
+    DateTimeSelectableComponent 
   ],
   imports: [
     CommonModule,
@@ -64,6 +67,7 @@ registerLocaleData(es)
     NailsFormComponent,
     MakeupFormComponent,
     AboutmeComponent,
+    DateTimeSelectableComponent,
     HttpClientModule,
     TranslateModule
   ],

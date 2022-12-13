@@ -31,7 +31,7 @@ export class HairdressingPage{
   // }
 
   onNewhairdressingOption(){
-    this.presentHairdressingForm({id: 0, name: "", price: 0, image: ""})
+    this.presentHairdressingForm(null)
   }
 
   deleteHairdressingOptionById(id: number) {
@@ -44,7 +44,7 @@ export class HairdressingPage{
 
 
 
-  async presentHairdressingForm(hairdressing : Hairdressing){
+  async presentHairdressingForm(hairdressing : Hairdressing | null){
     const modalController = await this.modalController.create({
       component: HairdressingFormComponent,
       componentProps:{

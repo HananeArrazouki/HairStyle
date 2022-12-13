@@ -11,6 +11,8 @@ import { NailsService } from 'src/app/core/services/nails.service';
 })
 export class NailsPage {
 
+  mode: "New" | "Edit" = "New";
+
   constructor(
     private _nailsService : NailsService,
     private modalController : ModalController,
@@ -25,12 +27,12 @@ export class NailsPage {
   }
 
   
-  addNailsOption(nails : Nails){
-    this._nailsService.addNailsOption(nails)
-  }
+  // addNailsOption(nails : Nails){
+  //   this._nailsService.addNailsOption(nails)
+  // }
 
   onNewNailsOption(){
-    this.presentNailsForm({id: 1, name: "", price: 0, image: ""})
+    this.presentNailsForm(null)
   }
 
   deleteNailsOptionById(id: number) {
@@ -41,7 +43,7 @@ export class NailsPage {
       this.presentNailsForm(nails)
   }
 
-  async presentNailsForm(nails : Nails){
+  async presentNailsForm(nails : Nails | null){
     const modalController = await this.modalController.create({
       component: NailsFormComponent,
       componentProps:{
@@ -53,10 +55,10 @@ export class NailsPage {
       if(result && result.data){
         switch(result.data.mode){
           case 'New':
-            this._nailsService.addNailsOption(result.data.persona);
+            this._nailsService.addNailsOption(result.data.nails);
             break;
           case 'Edit':
-            this._nailsService.updateNailsOption(result.data.persona);
+            this._nailsService.updateNailsOption(result.data.nails);
             break;
           default:
         }

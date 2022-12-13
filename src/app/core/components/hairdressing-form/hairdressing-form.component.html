@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>{{(mode=="New"?"hairDressing.addHairdressing":"hairDressing.modifyHairdressing") | translate}}</ion-title>
+    <ion-title>{{(mode=="Edit"?"hairDressing.modifyHairdressing":"hairDressing.addHairdressing") | translate}}</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="onDismiss()">{{'form.close' | translate}}</ion-button>
     </ion-buttons>
@@ -18,6 +18,6 @@
       <ion-input type="text" placeholder="{{'form.enterPrice' | translate}}" formControlName="price"></ion-input>
     </ion-item>
 
-    <ion-button [disabled]="!form.valid" type="submit">{{(mode=="New"?"form.add":"form.modify") | translate}}</ion-button>
+    <ion-button [disabled]="!form.valid" type="submit">{{(mode=="Edit"?"form.modify":"form.add") | translate}}</ion-button>
   </form>
 </ion-content>

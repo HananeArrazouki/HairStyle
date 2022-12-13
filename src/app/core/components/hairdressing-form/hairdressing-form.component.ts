@@ -28,7 +28,7 @@ export class HairdressingFormComponent {
     private modalController: ModalController
   ) 
   { this.form = this.formBuilder.group({
-      id: [-1],
+      id: [null],
       name: ['', [Validators.required]],
       price: ['', [Validators.required]],
       image: ['']

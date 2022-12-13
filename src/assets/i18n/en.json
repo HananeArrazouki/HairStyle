@@ -20,7 +20,9 @@
                     "add": "Add",
                     "close": "Close",
                     "Confirm": "Confirm",
-                    "cancel": "Cancel"
+                    "cancel": "Cancel",
+                    "date": "Select Date and Time",
+                    "selectOption": "Select what do you want to apply"
           },
           "menu": {
                     "hairDressing": "HairDressing",

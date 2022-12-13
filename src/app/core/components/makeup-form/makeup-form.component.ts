@@ -15,10 +15,10 @@ export class MakeupFormComponent {
 
   @Input('makeup') set makeup(makeup: Makeup) {
     if (makeup) {
-      // this.form.controls.id.setValue(makeup.id);
-      // this.form.controls.name.setValue(makeup.name);
-      // this.form.controls.price.setValue(makeup.price);
-      // this.form.controls.image.setValue(makeup.image);
+      this.form.controls['id'].setValue(makeup.id);
+      this.form.controls['name'].setValue(makeup.name);
+      this.form.controls['price'].setValue(makeup.price);
+      this.form.controls['image'].setValue(makeup.image);
       this.mode = "Edit";
     }
   }
