@@ -11,9 +11,9 @@ export class AboutMePage {
   constructor(
     private _aboutmeService: AboutmeService
   ) { }
-  
-  getAboutMeInformations() {
-    this._aboutmeService.aboutMeList$
+
+  getInfos() {
+    return this._aboutmeService.aboutMeList$
   }
 
 }

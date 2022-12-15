@@ -10,7 +10,11 @@
     <ion-card-title></ion-card-title>
   </ion-card-header>
 
-  <ion-card-content>
+  <ion-card-content *ngFor="let info of (getInfos() | async)">
+    <img src="{{info.image}}"/>
+    <ion-label>{{info.name}}</ion-label>
+    <ion-label>{{info.description}}</ion-label>
+
       <!-- <app-about-me 
       *ngFor="let about of getAboutMeInformations() | async"
       [aboutme]="about"></app-about-me> -->

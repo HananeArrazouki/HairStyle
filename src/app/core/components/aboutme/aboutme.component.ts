@@ -10,7 +10,7 @@ export class AboutmeComponent {
 
   constructor() { }
 
-  @Input() aboutme : Aboutme = {id: 1, name: "", image: ""}
+  @Input() aboutme : Aboutme = {id: 1, name: "", description: "",image: ""}
 
 
 }

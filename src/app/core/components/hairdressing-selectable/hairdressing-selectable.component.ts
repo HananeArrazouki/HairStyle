@@ -22,6 +22,10 @@ export class HairdressingSelectableComponent implements ControlValueAccessor {
 
   constructor( private hairDressingService: HairdressingService) { }
 
+  getHairdressingList() {
+    return this.hairDressingService.hairdressingOptionsList$
+  } 
+
   writeValue(hairdressingId: any): void {
     this.hairdressingSelected = this.hairDressingService.getHairDressingOptionsById(hairdressingId);
   }

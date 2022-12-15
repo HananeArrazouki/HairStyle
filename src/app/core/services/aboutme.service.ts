@@ -11,16 +11,19 @@ export class AboutmeService {
     {
       id: 1,
       name: "Personal Informationes",
+      description:"",
       image: "/assets/icon-menu/Hanane.png"
     },
     {
       id: 2,
       name: "Labor Informations",
+      description: "",
       image: "/assets/icon-menu/Hanane.png"
     },
     {
       id: 3,
       name: "Titles",
+      description: "",
       image: "/assets/icon-menu/Hanane.png"
     },
   ]
