@@ -92,6 +92,6 @@ export class NailsPage {
     });
     await alert.present();
     const { role } = await alert.onDidDismiss();
-}
+  }
 
 }

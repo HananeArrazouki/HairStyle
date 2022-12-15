@@ -19,7 +19,7 @@
                     "modify": "Modify",
                     "add": "Add",
                     "close": "Close",
-                    "Confirm": "Confirm",
+                    "confirm": "Confirm",
                     "cancel": "Cancel",
                     "date": "Select Date and Time",
                     "selectOption": "Select what do you want to apply"
@@ -34,6 +34,7 @@
           }
           ,"messages": {
                     "onDeleteMessage": "Are you sure you want to delete",
-                    "onPersonAssignedAlertMessage": "It could not delete."
+                    "onPersonAssignedAlertMessage": "It could not delete.",
+                    "aboutme": "My name is Hanane Arrazouki, I am from Morocco, born in 1999. I am a student at the IES Campanillas Institute (new), studying the Multiplatform Application Development module."
           }
 }

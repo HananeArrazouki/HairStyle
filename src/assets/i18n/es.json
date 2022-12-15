@@ -19,7 +19,7 @@
                     "modify": "Modificar",
                     "add": "Añadir",
                     "close": "Cerrar",
-                    "Confirm": "Confirmar",
+                    "confirm": "Confirmar",
                     "cancel": "Cancelar",
                     "date": "Seleccionar fecha y hora",
                     "selectOption": "Select what do you want to apply"
@@ -34,6 +34,7 @@
           },
           "messages": {
                     "onDeleteMessage": "Estas seguro de que quieres borrar",
-                    "onPersonAssignedAlertMessage": "No se puede borrar"
+                    "onPersonAssignedAlertMessage": "No se puede borrar",
+                    "aboutme": "Me llamo Hanane Arrazouki soy de marruecos nacida en 1999, soy un aestudiante en el instituto ies campanillas (nuevo), cursando el mmodulo Desarrollo de aplicaciones multiplataforma."
           }
 }

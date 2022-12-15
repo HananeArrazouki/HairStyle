@@ -4,21 +4,22 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-card>
-  <!-- <img alt="Informations" src="/assets/icon_menu/Hanane.png" /> -->
-  <ion-card-header>
-    <ion-card-title></ion-card-title>
-  </ion-card-header>
+<ion-content>
+  <ion-thumbnail  id="image">
+    <img alt="Informations" src="/assets/icon_menu/Hanane.png" />
+  </ion-thumbnail>
 
-  <ion-card-content *ngFor="let info of (getInfos() | async)">
-    <img src="{{info.image}}"/>
-    <ion-label>{{info.name}}</ion-label>
-    <ion-label>{{info.description}}</ion-label>
+  <ion-label id="title">Hanane Arrazouki</ion-label><br>
 
-      <!-- <app-about-me 
-      *ngFor="let about of getAboutMeInformations() | async"
-      [aboutme]="about"></app-about-me> -->
-
-  </ion-card-content>
-</ion-card>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="auto"></ion-col>
+      <ion-col>
+        <ion-note id="description" color="Dark">{{'messages.aboutme' | translate}}</ion-note>
+      </ion-col>
+      <ion-col size="auto"></ion-col>
+    </ion-row>
+  </ion-grid>
+  
+</ion-content>
 
