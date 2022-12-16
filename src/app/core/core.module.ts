@@ -18,6 +18,8 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { createTranslateLoader } from './utils/translate';
 import es from '@angular/common/locales/es'
 import { DateTimeSelectableComponent } from './components/date-time-selectable/date-time-selectable.component';
+import { AppointmentFormComponent } from './components/appointment-form/appointment-form.component';
+import { AppointmentComponent } from './components/appointment/appointment.component';
 
 
 registerLocaleData(es)
@@ -35,7 +37,9 @@ registerLocaleData(es)
     NailsFormComponent,
     MakeupFormComponent,
     AboutmeComponent,
-    DateTimeSelectableComponent 
+    DateTimeSelectableComponent,
+    AppointmentFormComponent,
+    AppointmentComponent
   ],
   imports: [
     CommonModule,
@@ -69,7 +73,9 @@ registerLocaleData(es)
     AboutmeComponent,
     DateTimeSelectableComponent,
     HttpClientModule,
-    TranslateModule
+    TranslateModule,
+    AppointmentFormComponent,
+    AppointmentComponent
   ],
   providers:[
     {

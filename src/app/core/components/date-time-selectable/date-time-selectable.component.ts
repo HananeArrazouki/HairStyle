@@ -48,7 +48,7 @@ export class DateTimeSelectableComponent implements OnDestroy, ControlValueAcces
     this.isDisabled = isDisabled;
   }
 
-  onDateTimeChanged(event: { detail: { value: any; }; }, accordion:IonAccordionGroup){
+  onDateTimeChanged(event: any, accordion:IonAccordionGroup){
     setTimeout(() => {
       var value = this.formatDate(moment(event.detail.value));
       if(value != this.dateSubject.getValue()){

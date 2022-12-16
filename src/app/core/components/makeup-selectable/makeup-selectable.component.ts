@@ -3,7 +3,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Makeup } from '../../interfaces/makeup';
 import { MakeupService } from '../../services/makeup.service';
 
-const PERSON_PROFILE_VALUE_ACCESSOR: any = {
+const MAKEUP_PROFILE_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => MakeupSelectableComponent),
   multi: true
@@ -13,7 +13,7 @@ const PERSON_PROFILE_VALUE_ACCESSOR: any = {
   selector: 'app-makeup-selectable',
   templateUrl: './makeup-selectable.component.html',
   styleUrls: ['./makeup-selectable.component.scss'],
-  providers: [PERSON_PROFILE_VALUE_ACCESSOR]
+  providers: [MAKEUP_PROFILE_VALUE_ACCESSOR]
 })
 export class MakeupSelectableComponent implements ControlValueAccessor {
 
