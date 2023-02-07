@@ -1,3 +1,18 @@
-<p>
-  appointment-form works!
-</p>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Take an Appointment</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="onDismiss()">{{'form.close' | translate}}</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" (keyup.enter)="onSubmit()">
+    <app-hairdressing-selectable></app-hairdressing-selectable>
+    <app-makeup-selectable></app-makeup-selectable>
+    <app-nails-selectable></app-nails-selectable>
+    <app-date-time-selectable></app-date-time-selectable>
+    <ion-button [disabled]="!form.valid" type="submit">{{(mode=="New"?"modal.add":"modal.modify") | translate}}</ion-button>
+  </form>
+</ion-content>

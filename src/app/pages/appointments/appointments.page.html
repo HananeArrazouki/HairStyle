@@ -6,33 +6,24 @@
 
 <ion-content>
 
-
-  <app-hairdressing-selectable></app-hairdressing-selectable>
-  <app-makeup-selectable></app-makeup-selectable>
-  <app-nails-selectable></app-nails-selectable>
-  <app-date-time-selectable></app-date-time-selectable>
-
-
-  <!-- <div>
-    <ion-fab vertical="top" horizontal="start" slot="fixed">
-      <ion-fab-button (click)="onNewAppointment()">
-        <ion-icon name="add" ></ion-icon>
-      </ion-fab-button>
-    </ion-fab>
-  </div><br> -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="onNewAppointment()">
+      <ion-icon name="add-sharp" ></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
   <!-- <app-appointment
-  *ngFor="let appointment of getAppointments() | async"
-  [appointment]="appointment" 
-  (onDelete)="onDeleteAppointment(appointment)" 
-  (onEdit)="onEditAppointment(appointment)">
+    *ngFor="let assignment of (getAppointments() | async)" 
+    [appointment]="appointment" 
+    (onDelete)="onDeleteAppointment($event)" 
+    (onEdit)="onEditAppointment($event)">
   </app-appointment> -->
-  
-  
-  <!-- <app-assignments  
-  *ngFor="let assignment of (getAssignments() | async)" 
-  [assignment]="assignment" (onDelete)="onDeleteAssignment(assignment)" (onEdit)="onEditAssignment(assignment)"></app-assignments>
-   -->
-  <br>
+
+
+  <!-- <app-hairdressing-selectable></app-hairdressing-selectable>
+  <app-makeup-selectable></app-makeup-selectable>
+  <app-nails-selectable></app-nails-selectable>
+  <app-date-time-selectable></app-date-time-selectable> -->
+
 
 </ion-content>

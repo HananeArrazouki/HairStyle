@@ -59,11 +59,14 @@ export class AppointmentService {
     }
 
     getAppointmentByMakeupId(id: number){
-      return this._appointment.find(a => a.id == id)
+      return this._appointment.find(a => a.makeupId == id)
     }
 
     getAppointmentByhairdressingId(id: number) {
       return this._appointment.find(a => a.hairdressigId == id)
+    }
+    getAppointmentByNailsId(id: number){
+      return this._appointment.find(a => a.nailsId == id)
     }
 
     deleteAppointmentById(id: number) {

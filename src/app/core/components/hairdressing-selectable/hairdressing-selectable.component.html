@@ -1,16 +1,15 @@
-
-  <ion-card slot="header" color="light">
-    <ion-card-header>
-      <ion-card-title>HairDressing</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-select 
-      placeholder="{{'form.selectOption' | translate}}" 
-      [multiple]="true"
-      [(ngModel)]="hairdressingSelected">
-        <ng-container  *ngFor="let op of getHairdressingList() | async">
-          <ion-select-option value="{{op.id}}">{{op.name}} {{op.price | currency:'EUR'}}</ion-select-option>
-        </ng-container>       
-      </ion-select>
-    </ion-card-content>
-  </ion-card>
+<ion-card slot="header" color="light">
+  <ion-card-header>
+    <ion-card-title>HairDressing</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-select 
+    placeholder="{{'form.selectOption' | translate}}" 
+    [multiple]="true"
+    [(ngModel)]="hairdressingSelected">
+      <ng-container  *ngFor="let op of getHairdressingList() | async">
+        <ion-select-option value="{{op.id}}">{{op.name}} {{op.price | currency:'EUR'}}</ion-select-option>
+      </ng-container>       
+    </ion-select>
+  </ion-card-content>
+</ion-card>

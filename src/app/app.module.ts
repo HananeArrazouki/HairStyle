@@ -10,13 +10,14 @@ import { CoreModule } from './core/core.module';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { createTranslateLoader } from './core/utils/translate';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { LoginPipe } from './pages/login.pipe';
 
 @NgModule({
   declarations: [
-    AppComponent],
+    AppComponent,
+    LoginPipe],
   imports: [
     BrowserModule, 
-    // IonicModule.forRoot(), 
     CoreModule,
     AppRoutingModule,
     HttpClientModule,

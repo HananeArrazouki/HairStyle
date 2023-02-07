@@ -46,33 +46,12 @@ export class AppointmentsPage {
     this.appointmentService.deleteAppointmentById(id)
   }
 
-  async presentAppointmentForm(appointment: Appointment | null) {
-    const modalController = await this.modalController.create({
-      component: AppointmentFormComponent,
-      componentProps: {
-        appointment: appointment
-      }
-    });
-    modalController.present();
-    modalController.onDidDismiss().then(result => {
-      if (result && result.data) {
-        switch (result.data.mode) {
-          case 'New':
-            this.appointmentService.addAppointment(result.data.appointment)
-            break;
-          case 'Edit':
-            this.appointmentService.updateAppointment(result.data.assignment);
-            break;
-          default:
-        }
-      }
-    });
-  }
+  
 
   async onDelete(appointment: Appointment) {
     const alert = await this.alertController.create({
       mode: 'ios',
-      header: '¿Are you sure you want to delete this assignment?',
+      header: '¿Are you sure you want to delete this appointment?',
       buttons: [
         {
           text: 'No',
@@ -98,6 +77,29 @@ export class AppointmentsPage {
 
   onEditAppointment(appointment: Appointment) {
     this.presentAppointmentForm(appointment);
+  }
+
+  async presentAppointmentForm(appointment: Appointment | null) {
+    const modalController = await this.modalController.create({
+      component: AppointmentFormComponent,
+      componentProps: {
+        appointment: appointment
+      }
+    });
+    modalController.present();
+    modalController.onDidDismiss().then(result => {
+      if (result && result.data) {
+        switch (result.data.mode) {
+          case 'New':
+            this.appointmentService.addAppointment(result.data.appointment)
+            break;
+          case 'Edit':
+            this.appointmentService.updateAppointment(result.data.appointment);
+            break;
+          default:
+        }
+      }
+    });
   }
 
   onDeleteAppointment(appointment: Appointment) {

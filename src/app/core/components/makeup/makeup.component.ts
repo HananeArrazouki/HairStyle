@@ -20,29 +20,4 @@ export class MakeupComponent {
   onDeleteClick(){
     this.onDelete.emit(this.makeup);
   }
-
-
-
-
-
-
-
-  // private _makeup : Makeup = {id: 1, name: "", price: 0, image: ""}
-  
-
-  // @Input('makeup') set makeupOption(makeup: Makeup) {
-  //     this._makeup = makeup
-  // }
-  
-  // constructor(private _makeupService: MakeupService) { }
-
-  // get makeupOption() {
-  //   return this._makeup
-  // }
-
-  // getHairdressing() {
-  //   return this._makeupService.getMakeupOptions()
-  // }
-
-
 }

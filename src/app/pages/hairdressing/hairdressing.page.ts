@@ -26,9 +26,6 @@ export class HairdressingPage{
     return this._hairdressingService.getHairDressingOptionsById(id)
   }
 
-  // addHairdressingOption(hairdressing : Hairdressing){
-  //   this._hairdressingService.addHairdressingOption(hairdressing)
-  // }
 
   onNewhairdressingOption(){
     this.presentHairdressingForm(null)

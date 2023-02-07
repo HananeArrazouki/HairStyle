@@ -26,10 +26,6 @@ export class MakeupPage {
     return this._makeUpService.getMakeupOptionsById(id)
   }
 
-  // addMakeupOption(makeup : Makeup){
-  //   this._makeUpService.addMakeupOption(makeup)
-  // }
-
   onNewMakeupOption(){
     this.presentMakeupForm(null)
   }
