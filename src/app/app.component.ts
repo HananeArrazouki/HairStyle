@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { UserService } from './core/services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +11,9 @@ import { TranslateService } from '@ngx-translate/core';
 export class AppComponent {
   language = 0;
   constructor(
-    private translate: TranslateService
+    private translate: TranslateService,
+    private userService: UserService,
+    private router: Router
   ) {
     this.translate.setDefaultLang('es');
     this.translate.get('home.title').subscribe((Text: any) =>{
@@ -27,6 +31,11 @@ export class AppComponent {
         this.translate.setDefaultLang('en')
         break
     }
+  }
+
+  signOut(){
+    this.userService.signOut();
+    this.router.navigate(['login'])
   }
 
 }

@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
 import { FirebaseApp } from 'firebase/app';
-import { Auth, Unsubscribe, User } from 'firebase/auth';
+import { Auth, Unsubscribe, User, UserCredential } from 'firebase/auth';
 import { DocumentData, Firestore } from 'firebase/firestore';
 import { FirebaseStorage } from 'firebase/storage';
 import { BehaviorSubject } from 'rxjs';
 
+export interface FileUploaded{
+  path:string,
+  file:string
+};
 
 export interface FirebaseDocument{
   id:string;
@@ -37,20 +41,27 @@ export abstract class FirebaseService {
   public isLogged$ = this._isLogged.asObservable();
 
   public abstract init(): any;
-  public abstract imageUpload(blob: Blob): Promise<any>;
+  public abstract fileUpload(blob: Blob, mimeType:string, prefix:string, extension:string): Promise<FileUploaded>;
+  public abstract imageUpload(blob: Blob): Promise<FileUploaded>;
   public abstract createDocument(collectionName:string, data:any):Promise<string>;
+  public abstract createDocumentWithId(collectionName:string, data:any, docId:string):Promise<void>;
   public abstract updateDocument(collectionName:string, document:string, data:any):Promise<void>;
   public abstract getDocuments(collectionName:string):Promise<FirebaseDocument[]>;
   public abstract getDocument(collectionName:string, document:string):Promise<FirebaseDocument>;
   public abstract getDocumentBy(collectionName:string, field:string, value:any):Promise<FirebaseDocument[]>;
+  public abstract deleteDocument(collectionName:string, docId:string):Promise<void>;
   public abstract subscribeToCollection(collectionName: string, subject: BehaviorSubject<any[]>, mapFunction:(el:DocumentData)=>any):Unsubscribe
   public abstract setUserAndEmail(uid:string, email:string): any;
-  public abstract createUserWithEmailAndPassword(email:string, password:string): any;
-  public abstract connectUserWithEmailAndPassword(email:string, password:string): any;
+  public abstract createUserWithEmailAndPassword(email:string, password:string):Promise<UserCredential>;
+  public abstract connectUserWithEmailAndPassword(email:string, password:string):Promise<UserCredential>;
   public abstract signOut(): any;
   public abstract signOut(signInAnon:boolean): any;
   public abstract isUserConnected():Promise<boolean>;
   public abstract isUserConnectedAnonymously():Promise<boolean>;
   public abstract connectAnonymously():Promise<void>;
   public abstract deleteUser():Promise<void>;
+
+  public getUser():User{
+    return this.user;
+  }
 }

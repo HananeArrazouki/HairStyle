@@ -6,7 +6,9 @@ export interface UserLogin{
 export interface UserRegister{
           email:string,
           password:string,
-          username:string
+          username:string,
+          firstName: string,
+          lastName: string
 }
 
 export interface User{
@@ -16,6 +18,6 @@ export interface User{
           email:string;
           provider:string;
           token:string,
-          first_name:string,
-          last_name:string
+          firstName:string,
+          lastName:string
 }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { User, UserLogin, UserRegister } from '../interfaces/user';
-import { ApiService } from './api.service';
+import { UserCredential } from 'firebase/auth';
 import { FirebaseService } from './firebase/firebase.service';
 
 @Injectable({
@@ -12,10 +12,11 @@ export class UserService {
 
   private _isLogged = new BehaviorSubject<boolean>(false);
   public isLogged$ = this._isLogged.asObservable();
+  private _user = new BehaviorSubject<User>(null);
+  public user$ = this._user.asObservable();
   private user:User | undefined;
   constructor(
     private firebase:FirebaseService,
-    private api:ApiService,
     private router:Router
   ) {
     this.init();
@@ -23,7 +24,11 @@ export class UserService {
   }
 
   private async init(){
-    this.firebase.isLogged$.subscribe((logged)=>{
+    this.firebase.isLogged$.subscribe(async (logged)=>{
+      if(logged){
+        this._user.next((await this.firebase.getDocument('users', this.firebase.getUser().uid)).data as User);
+        this.router.navigate(['./Home']);
+      }
       this._isLogged.next(logged);
     });
     
@@ -54,8 +59,21 @@ export class UserService {
     return new Promise<string>(async (resolve, reject)=>{
       if(!this._isLogged.value){
         try {
-          await this.firebase.createUserWithEmailAndPassword(data.email, data.password);
-        } catch (error) {
+          var _user:UserCredential = (await this.firebase.createUserWithEmailAndPassword(data.email, data.password));
+          await this.firebase.createDocumentWithId('usuarios', 
+            {
+              uid:_user.user.uid,
+              username:data.username, 
+              nickname:"",
+              picture:"",
+              email:data.email,
+              provider:'firebase',
+              token:await _user.user.getIdToken(),
+              first_name:data.firstName, 
+              last_name:data.lastName
+            }, _user.user.uid);
+            await this.firebase.connectUserWithEmailAndPassword(data.email, data.password);
+        }catch (error) {
           reject(error);
         }
       }
@@ -63,10 +81,6 @@ export class UserService {
         reject('already connected');
       }
     });
-  }
-
-  getUser(){
-    return  this.user;
   }
   
 }

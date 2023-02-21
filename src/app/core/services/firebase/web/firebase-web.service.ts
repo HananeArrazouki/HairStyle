@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { FirebaseDocument, FirebaseService, FIRESTORAGE_PREFIX_PATH } from '../firebase.service';
-import {indexedDBLocalPersistence, initializeAuth, createUserWithEmailAndPassword, deleteUser, signInAnonymously, signOut, signInWithEmailAndPassword,} from 'firebase/auth'
+import { FileUploaded, FirebaseDocument, FirebaseService, FIRESTORAGE_PREFIX_PATH } from '../firebase.service';
+import {indexedDBLocalPersistence, initializeAuth, createUserWithEmailAndPassword, deleteUser, signInAnonymously, signOut, signInWithEmailAndPassword, UserCredential,} from 'firebase/auth'
 import { initializeApp,  deleteApp, getApp } from "firebase/app";
 import { setUserId, setUserProperties } from "firebase/analytics";
 import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage";
@@ -12,6 +12,57 @@ import { getFirestore, addDoc, collection, doc, onSnapshot, getDoc, setDoc, quer
 })
 
 export class FirebaseWebService extends FirebaseService implements OnDestroy{
+
+  public fileUpload(blob: Blob, mimeType:string, prefix:string, extension:string):Promise<FileUploaded>{
+    return new Promise(async (resolve, reject) => {
+      var freeConnection = false;
+      if(this.auth.currentUser==null){
+        try {
+
+          await signInAnonymously(this.auth);
+          freeConnection = true;
+        } catch (error) {
+          reject(error);
+        }
+      }
+      const path = FIRESTORAGE_PREFIX_PATH+"/"+prefix+"-"+Date.now() + extension;
+      const storageRef = ref(this.webStorage, path);
+      const metadata = {
+        contentType: mimeType,
+      };
+      uploadBytes(storageRef, blob).then(async (snapshot) => {
+        getDownloadURL(storageRef).then(async downloadURL => {
+          if(freeConnection)
+              await signOut(this.auth);
+          resolve({
+            path,
+            file: downloadURL,
+          });
+        }).catch(async error=>{
+          if(freeConnection)
+              await signOut(this.auth);
+          reject(error);
+        });
+      }).catch(async (error) => {
+        if(freeConnection)
+              await signOut(this.auth);
+        reject(error);
+      });
+    });
+  }
+
+  public deleteDocument(collectionName: string, docId: string): Promise<void> {
+    throw new Error('Method not implemented.');
+  }
+  
+  public createDocumentWithId(collectionName:string, data:any, docId:string):Promise<void>{
+    return new Promise((resolve,reject)=>{
+      const collectionRef = collection(this.db, collectionName);
+      const docRef = doc(this.db, 'usuarios', docId);
+      setDoc(docRef, data).then(docRef => resolve()
+      ).catch(err =>  reject(err));
+    });
+  }
 
   constructor() {
     super();
@@ -197,38 +248,37 @@ export class FirebaseWebService extends FirebaseService implements OnDestroy{
     return response;
   }
 
-  public async createUserWithEmailAndPassword(email:string, password:string){
-    try {
-      await createUserWithEmailAndPassword(this.auth, email, password);
-      await signInWithEmailAndPassword(this.auth, email, password);
-    } catch (error: any) {
-      switch (error.code) {
-        case 'auth/email-already-in-use':
-          console.log(`Email address ${email} already in use.`);
-          break;
-        case 'auth/invalid-email':
-          console.log(`Email address ${email} is invalid.`);
-          break;
-        case 'auth/operation-not-allowed':
-          console.log(`Error during sign up.`);
-          break;
-        case 'auth/weak-password':
-          console.log('Password is not strong enough. Add additional characters including special characters and numbers.');
-          break;
-        default:
-          console.log(error.message);
-          break;
+  public async createUserWithEmailAndPassword(email:string, password:string):Promise<UserCredential>{
+    return new Promise((resolve,reject)=>{
+      try {
+        resolve(createUserWithEmailAndPassword(this.auth, email, password));
+      } catch (error) {
+        switch (error.code) {
+          case 'auth/email-already-in-use':
+            console.log(`Email address ${email} already in use.`);
+            break;
+          case 'auth/invalid-email':
+            console.log(`Email address ${email} is invalid.`);
+            break;
+          case 'auth/operation-not-allowed':
+            console.log(`Error during sign up.`);
+            break;
+          case 'auth/weak-password':
+            console.log('Password is not strong enough. Add additional characters including special characters and numbers.');
+            break;
+          default:
+            console.log(error.message);
+            break;
+        }
+        reject(error);
       }
-    }
+    });
+    
   }
   
-  public async connectUserWithEmailAndPassword(email: string, password: string) {
-    try {
-      await signInWithEmailAndPassword(this.auth, email, password);
-    } catch (error) {
-      
-    }    
-  }
+  public async connectUserWithEmailAndPassword(email: string, password: string):Promise<UserCredential> {
+    return signInWithEmailAndPassword(this.auth, email, password);
+}
 
   public deleteUser():Promise<void>{
     return deleteUser(this.user);
