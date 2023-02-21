@@ -36,5 +36,26 @@
                     "onDeleteMessage": "Estas seguro de que quieres borrar",
                     "onPersonAssignedAlertMessage": "No se puede borrar",
                     "aboutme": "Me llamo Hanane Arrazouki soy de marruecos nacida en 1999, soy un aestudiante en el instituto ies campanillas (nuevo), cursando el mmodulo Desarrollo de aplicaciones multiplataforma."
+          },
+          "register": {
+                    "title":"Registro",
+                    "register":"quiero registrarme",
+                    "first_name":"Nombre",
+                    "last_name":"Apellidos",
+                    "email":"Email",
+                    "password":"Contraseña",
+                    "confirm_password":"Repita contraseña",
+                    "send":"Enviar"
+          },
+          "login":{
+                    "title":"Iniciar sesión",
+                    "email":"Email",
+                    "password":"Contraseña",
+                    "send":"Enviar"
+          },
+          "validators":{
+                    "passwordMatch": "Las contraseñas no coinciden",
+                    "passwordProto": "Al menos 8 caracteres, una letra mayúscula, una letra minúscula y un número",
+                    "email": "Debe introducir un email válido"
           }
 }

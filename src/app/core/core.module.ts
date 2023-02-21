@@ -1,7 +1,7 @@
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { SalonOptionsComponent } from './components/salon-options/salon-options.component';
 import { HairdressingComponent } from './components/hairdressing/hairdressing.component';
 import { NailsComponent } from './components/nails/nails.component';
@@ -47,9 +47,9 @@ registerLocaleData(es)
   ],
   imports: [
     CommonModule,
+    FormsModule,
     IonicModule.forRoot(), 
-    FormsModule, 
-    ReactiveFormsModule,
+    
     HttpClientModule,
     TranslateModule.forChild({
       loader: {
@@ -57,7 +57,8 @@ registerLocaleData(es)
         useFactory: (createTranslateLoader),
         deps: [HttpClient]
       }
-    })
+    }),
+    ReactiveFormsModule,
   ],
   exports: [
     CommonModule,
@@ -77,7 +78,6 @@ registerLocaleData(es)
     AboutmeComponent,
     DateTimeSelectableComponent,
     HttpClientModule,
-    TranslateModule,
     AppointmentFormComponent,
     AppointmentComponent,
     SigninComponent,
