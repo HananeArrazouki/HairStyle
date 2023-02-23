@@ -72,7 +72,7 @@ export class HairdressingService {
         var hairdressing = (await this.firebase.getDocument('hairdressing', id));
         resolve({
           id:0,
-          docId: hairdressing.data['docId'],
+          docId: hairdressing['id'],
           name: hairdressing.data['name'],
           price:hairdressing.data['price'],
           image:hairdressing.data['image'], 
@@ -96,10 +96,10 @@ export class HairdressingService {
 
   async addHairdressingOption(hairdressing: Hairdressing) {
     var _hairDressing = {
+      id:0,
       docId: hairdressing.docId,
       name:hairdressing.name,
       price:hairdressing.price,
-      image:hairdressing.image
     };
     if(hairdressing['pictureFile']){
       var response = await this.uploadImage(hairdressing['pictureFile']);
@@ -114,10 +114,10 @@ export class HairdressingService {
 
   async updateHairdressingOption(hairdressing: Hairdressing){
     var _hairDressing = {
+      id:0,
       docId: hairdressing.docId,
       name:hairdressing.name,
-      price:hairdressing.price,
-      image:hairdressing.image
+      price:hairdressing.price
     };
     if(hairdressing['pictureFile']){
       var response:FileUploaded = await this.uploadImage(hairdressing['pictureFile']);

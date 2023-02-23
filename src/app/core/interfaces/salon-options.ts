@@ -1,5 +1,5 @@
 export interface SalonOptions {
           id: number,
-          image: string,
+          image?: string,
           name: string
 }
