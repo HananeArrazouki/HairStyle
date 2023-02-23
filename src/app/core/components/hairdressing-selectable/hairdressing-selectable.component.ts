@@ -19,6 +19,7 @@ export class HairdressingSelectableComponent implements ControlValueAccessor {
 
   hairdressingSelected : Hairdressing | undefined
   propagateChange = (_:any) => { }
+  isDisabled:boolean = false;
 
   constructor( private hairDressingService: HairdressingService) { }
 
@@ -26,8 +27,8 @@ export class HairdressingSelectableComponent implements ControlValueAccessor {
     return this.hairDressingService.hairdressingOptionsList$
   } 
 
-  writeValue(hairdressingId: any): void {
-    this.hairdressingSelected = this.hairDressingService.getHairDressingOptionsById(hairdressingId);
+  async writeValue(hairdressingId: any) {
+    this.hairdressingSelected = await this.hairDressingService.getHairDressingOptionsById(hairdressingId);
   }
 
   registerOnChange(fn: any): void {

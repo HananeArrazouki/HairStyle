@@ -22,7 +22,7 @@ export class MakeupPage {
     return this._makeUpService.makeupOptionsList$
   }
 
-  getMakeupOptionsById(id: number) {
+  getMakeupOptionsById(id: string) {
     return this._makeUpService.getMakeupOptionsById(id)
   }
 
@@ -30,9 +30,9 @@ export class MakeupPage {
     this.presentMakeupForm(null)
   }
 
-  deleteMakeupOptionById(id: number) {
-    return this._makeUpService.deleteMakeupOptionById(id)
-  }
+  // deleteMakeupOptionById(id: number) {
+  //   return this._makeUpService.deleteMakeupOptionById(id)
+  // }
 
   onEditMakeupOption(makeup : Makeup) {
       this.presentMakeupForm(makeup)
@@ -80,7 +80,7 @@ export class MakeupPage {
           text: 'Delete',
           role: 'confirm',
           handler: () => {
-            this._makeUpService.deleteMakeupOptionById(makeup.id);
+            this._makeUpService.deleteMakeupOption(makeup);
           },
         },
       ],

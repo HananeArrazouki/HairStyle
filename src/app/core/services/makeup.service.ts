@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
+import { DocumentData } from 'firebase/firestore';
 import { BehaviorSubject } from 'rxjs';
 import { Makeup } from '../interfaces/makeup';
+import { FirebaseService, FileUploaded } from './firebase/firebase.service';
 
 @Injectable({
   providedIn: 'root'
@@ -44,35 +46,97 @@ export class MakeupService {
   public makeupOptionsList$ = this._makeupSubject.asObservable();
 
 
-  public getMakeupOptions(): Makeup[] {
-    return this._makeupOptions;
+  unsubscr;
+  constructor(
+    private firebase:FirebaseService
+  ) {
+    this.unsubscr = this.firebase.subscribeToCollection('makeup',this._makeupSubject, this.mapMakeup);
   }
 
-  public getMakeupOptionsById(id: number):(Makeup | undefined) {
-    return this._makeupOptions.find(op => op.id == id)
+  ngOnDestroy(): void {
+    this.unsubscr();
   }
 
-  addMakeupOption(makeup: Makeup) {
-    makeup.id = this.id++;
-    this._makeupOptions.push(makeup)
-    this._makeupSubject.next(this._makeupOptions)
+  private mapMakeup(doc:DocumentData){
+    return {
+      id:0,
+      docId: doc['id'],
+      name:doc['data']().name,
+      price:doc['data']().price,
+      image:doc['data']().image,
+    };
+  }
+  
+  getMakeupOptions() {
+    return this._makeupSubject.value;
   }
 
-  updateMakeupOption(makeup: Makeup){
-    var updatedMakeupOption = this._makeupOptions.find(p => p.id == makeup.id)
-    if(updatedMakeupOption){
-      updatedMakeupOption.name = makeup.name
-      updatedMakeupOption.price = makeup.price
-      updatedMakeupOption.image = makeup.image
-    }   
-    this._makeupSubject.next(this._makeupOptions)
+  public getMakeupOptionsById(id: string):Promise<Makeup> {
+    return new Promise<Makeup>(async (resolve, reject)=>{
+      try {
+        var makeup = (await this.firebase.getDocument('makeup', id));
+        resolve({
+          id:0,
+          docId: makeup['id'],
+          name: makeup.data['name'],
+          price:makeup.data['price'],
+          image:makeup.data['image'], 
+        });  
+      }catch (error) {
+        reject(error);
+      }
+    });
   }
 
-  //Delete an option of the MakeUp.
-  deleteMakeupOptionById(id: number) {
-    this._makeupOptions = this._makeupOptions.filter(p => p.id != id);
-    this._makeupSubject.next(this._makeupOptions)
+  uploadImage(file):Promise<any>{  
+    return new Promise(async (resolve, reject)=>{
+      try {
+        const data = await this.firebase.imageUpload(file);  
+        resolve(data);
+      } catch (error) {
+        resolve(error);
+      }
+    });
   }
 
-  constructor() { }
+  async addMakeupOption(makeup: Makeup) {
+    var _makeup = {
+      id:0,
+      docId: makeup.docId,
+      name:makeup.name,
+      price:makeup.price,
+    };
+    if(makeup['pictureFile']){
+      var response = await this.uploadImage(makeup['pictureFile']);
+      _makeup['picture'] = response.image;
+    }
+    try {
+      await this.firebase.createDocument('makeup', _makeup);  
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async updateMakeupOption(makeup: Makeup){
+    var _makeup = {
+      id:0,
+      docId: makeup.docId,
+      name:makeup.name,
+      price:makeup.price
+    };
+    if(makeup['pictureFile']){
+      var response:FileUploaded = await this.uploadImage(makeup['pictureFile']);
+      _makeup['picture'] = response.file;
+    }
+    try {
+      await this.firebase.updateDocument('makeup', makeup.docId, _makeup);  
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  //Delete an option of the makeup.
+  async deleteMakeupOption(makeup: Makeup) {
+    await this.firebase.deleteDocument('makeup', makeup.docId);
+  }
 }

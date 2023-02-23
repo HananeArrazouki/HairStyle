@@ -22,7 +22,7 @@ export class NailsPage {
     return this._nailsService.nailsOptionsList$
   }
 
-  getNailsOptionsById(id: number) {
+  getNailsOptionsById(id: string) {
     return this._nailsService.getNailsOptionsById(id)
   }
 
@@ -35,9 +35,9 @@ export class NailsPage {
     this.presentNailsForm(null)
   }
 
-  deleteNailsOptionById(id: number) {
-    return this._nailsService.deleteNailsOptionById(id)
-  }
+  // deleteNailsOptionById(id: number) {
+  //   return this._nailsService.deleteNailsOptionById(id)
+  // }
 
   onEditNailsOption(nails : Nails) {
       this.presentNailsForm(nails)
@@ -67,31 +67,31 @@ export class NailsPage {
   }
 
 
-  onDeleteNailsOption(nails : Nails) {
-    this.onDeleteAlert(nails)
-  }
+  // onDeleteNailsOption(nails : Nails) {
+  //   this.onDeleteAlert(nails)
+  // }
 
-  async onDeleteAlert(nails: Nails) {
-    const alert = await this.alertController.create({
-      header: '¿Are you sure you want to delete ' + nails.name + '?',
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          handler: () => {
-          },
-        },
-        {
-          text: 'Delete',
-          role: 'confirm',
-          handler: () => {
-            this._nailsService.deleteNailsOptionById(nails.id);
-          },
-        },
-      ],
-    });
-    await alert.present();
-    const { role } = await alert.onDidDismiss();
-  }
+  // async onDeleteAlert(nails: Nails) {
+  //   const alert = await this.alertController.create({
+  //     header: '¿Are you sure you want to delete ' + nails.name + '?',
+  //     buttons: [
+  //       {
+  //         text: 'Cancel',
+  //         role: 'cancel',
+  //         handler: () => {
+  //         },
+  //       },
+  //       {
+  //         text: 'Delete',
+  //         role: 'confirm',
+  //         handler: () => {
+  //           this._nailsService.deleteNailsOptionById(nails.id);
+  //         },
+  //       },
+  //     ],
+  //   });
+  //   await alert.present();
+  //   const { role } = await alert.onDidDismiss();
+  // }
 
 }

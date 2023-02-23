@@ -26,9 +26,10 @@ export class MakeupSelectableComponent implements ControlValueAccessor {
     return this.makeupService.makeupOptionsList$
   } 
 
-  writeValue(obj: any): void {
-    throw new Error('Method not implemented.');
+  async writeValue(obj: any) {
+    this.makeupSelected = await this.makeupService.getMakeupOptionsById(obj);
   }
+  
   registerOnChange(fn: any): void {
     throw new Error('Method not implemented.');
   }

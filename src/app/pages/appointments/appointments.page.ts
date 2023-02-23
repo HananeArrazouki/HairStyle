@@ -30,17 +30,17 @@ export class AppointmentsPage {
     return this.appointmentService.getAppointmentById(id)
   }
 
-  getHairdressingSelectedById(id: number){
-    return this.hairdressingService.getHairDressingOptionsById(id)
-  }
+  // getHairdressingSelectedById(id: number){
+  //   return this.hairdressingService.getHairDressingOptionsById(id)
+  // }
 
-  getNailsSelectedById(id: number){
-    return this.nailsService.getNailsOptionsById(id)
-  }
+  // getNailsSelectedById(id: number){
+  //   return this.nailsService.getNailsOptionsById(id)
+  // }
 
-  getMakeupSelectedById(id: number){
-    return this.makeupService.getMakeupOptionsById(id)
-  }
+  // getMakeupSelectedById(id: number){
+  //   return this.makeupService.getMakeupOptionsById(id)
+  // }
 
   deleteAppointmentByID(id: number) {
     this.appointmentService.deleteAppointmentById(id)
