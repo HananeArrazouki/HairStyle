@@ -15,7 +15,7 @@ export class HairdressingFormComponent {
 
   @Input('hairdressing') set hairdressing(hairdressing: Hairdressing) {
     if (hairdressing) {
-      this.form.controls['id'].setValue(hairdressing.id);
+      this.form.controls['docId'].setValue(hairdressing.docId);
       this.form.controls['name'].setValue(hairdressing.name);
       this.form.controls['price'].setValue(hairdressing.price);
       this.form.controls['image'].setValue(hairdressing.image);
@@ -29,6 +29,7 @@ export class HairdressingFormComponent {
   ) 
   { this.form = this.formBuilder.group({
       id: [null],
+      docId: [''],
       name: ['', [Validators.required]],
       price: ['', [Validators.required]],
       image: ['']
@@ -36,10 +37,10 @@ export class HairdressingFormComponent {
   }
 
   onSubmit() {
-    this.modalController.dismiss({ hairdressing: this.form.value, mode: this.mode });
+    this.modalController.dismiss({ hairdressing: this.form.value, mode: this.mode }, 'ok');
   }
 
   onDismiss() {
-    this.modalController.dismiss();
+    this.modalController.dismiss(null, 'cancel');
   }
 }

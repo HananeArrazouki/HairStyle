@@ -66,31 +66,31 @@ export class HairdressingPage{
     });
   }
 
-//   onDeleteHairdressingOption(hairdressing : Hairdressing) {
-//     this.onDeleteAlert(hairdressing)
-//   }
+   onDeleteHairdressingOption(hairdressing : Hairdressing) {
+     this.onDeleteAlert(hairdressing)
+   }
 
-//   async onDeleteAlert(hairdressing: Hairdressing) {
-//     const alert = await this.alertController.create({
-//       header: '¿Are you sure you want to delete ' + hairdressing.name + '?',
-//       buttons: [
-//         {
-//           text: 'Cancel',
-//           role: 'cancel',
-//           handler: () => {
-//           },
-//         },
-//         {
-//           text: 'Delete',
-//           role: 'confirm',
-//           handler: () => {
-//             this._hairdressingService.deleteHairdressingOptionById(hairdressing);
-//           },
-//         },
-//       ],
-//     });
-//     await alert.present();
-//     const { role } = await alert.onDidDismiss();
-// }
+  async onDeleteAlert(hairdressing: Hairdressing) {
+    const alert = await this.alertController.create({
+      header: '¿Are you sure you want to delete ' + hairdressing.name + '?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+          },
+        },
+        {
+          text: 'Delete',
+          role: 'confirm',
+          handler: () => {
+            this._hairdressingService.deleteHairdressingOption(hairdressing);
+          },
+        },
+      ],
+    });
+    await alert.present();
+    const { role } = await alert.onDidDismiss();
+}
 
 }

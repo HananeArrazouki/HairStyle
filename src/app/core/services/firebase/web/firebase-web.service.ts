@@ -1,17 +1,50 @@
-import { Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { FileUploaded, FirebaseDocument, FirebaseService, FIRESTORAGE_PREFIX_PATH } from '../firebase.service';
-import {indexedDBLocalPersistence, initializeAuth, createUserWithEmailAndPassword, deleteUser, signInAnonymously, signOut, signInWithEmailAndPassword, UserCredential,} from 'firebase/auth'
+import { Injectable, OnDestroy } from "@angular/core";
+import { BehaviorSubject } from "rxjs";
 import { initializeApp,  deleteApp, getApp } from "firebase/app";
 import { setUserId, setUserProperties } from "firebase/analytics";
+import { getFirestore, addDoc, collection, updateDoc, doc, onSnapshot, getDoc, setDoc, query, where, getDocs, Unsubscribe, DocumentData, deleteDoc} from "firebase/firestore";
 import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage";
-import { getFirestore, addDoc, collection, doc, onSnapshot, getDoc, setDoc, query, where, getDocs, Unsubscribe, DocumentData} from "firebase/firestore";
+import { createUserWithEmailAndPassword, getAuth, deleteUser, signInAnonymously, signOut, signInWithEmailAndPassword, initializeAuth, indexedDBLocalPersistence, UserCredential } from "firebase/auth";
+import { FileUploaded, FirebaseDocument, FirebaseService, FIRESTORAGE_PREFIX_PATH } from "../firebase.service";
 
-@Injectable({
-  providedIn: 'root'
-})
 
+@Injectable({providedIn: 'root'})
 export class FirebaseWebService extends FirebaseService implements OnDestroy{
+  constructor() {
+    super();
+    this.init();
+    
+  }
+  async init(){
+    const firebaseConfig = {
+      apiKey: "AIzaSyBCACVEsj84ZvP6v1kKBUSE4FIzcxa8fTs",
+      authDomain: "hairstyle-1c543.firebaseapp.com",
+      projectId: "hairstyle-1c543",
+      storageBucket: "hairstyle-1c543.appspot.com",
+      messagingSenderId: "820757326841",
+      appId: "1:820757326841:web:2d91d0e4a244d1df2dab28",
+      measurementId: "G-EFM4L16HF8"
+    };
+    
+      // Initialize Firebase
+    this.app = initializeApp(firebaseConfig);
+    this.db = getFirestore(this.app);
+    this.webStorage = getStorage(this.app);
+    this.auth = initializeAuth(getApp(), { persistence: indexedDBLocalPersistence });      
+    //this.auth = getAuth(this.app);
+    this.active = true;
+    this.auth.onAuthStateChanged(async user=>{
+      this.user = user;
+      if(user){
+        this._isLogged.next(true);
+        this.setUserAndEmail(user.uid, user.email);
+      }
+      else{
+        this._isLogged.next(false);
+      }
+      console.log(user);
+    });
+  }
 
   public fileUpload(blob: Blob, mimeType:string, prefix:string, extension:string):Promise<FileUploaded>{
     return new Promise(async (resolve, reject) => {
@@ -51,98 +84,15 @@ export class FirebaseWebService extends FirebaseService implements OnDestroy{
     });
   }
 
-  public deleteDocument(collectionName: string, docId: string): Promise<void> {
-    throw new Error('Method not implemented.');
-  }
-  
-  public createDocumentWithId(collectionName:string, data:any, docId:string):Promise<void>{
-    return new Promise((resolve,reject)=>{
-      const collectionRef = collection(this.db, collectionName);
-      const docRef = doc(this.db, 'usuarios', docId);
-      setDoc(docRef, data).then(docRef => resolve()
-      ).catch(err =>  reject(err));
-    });
-  }
-
-  constructor() {
-    super();
-    this.init();
-    
-  }
-  async init(): Promise<any>{
-    const firebaseConfig = {
-      apiKey: "AIzaSyBCACVEsj84ZvP6v1kKBUSE4FIzcxa8fTs",
-      authDomain: "hairstyle-1c543.firebaseapp.com",
-      projectId: "hairstyle-1c543",
-      storageBucket: "hairstyle-1c543.appspot.com",
-      messagingSenderId: "820757326841",
-      appId: "1:820757326841:web:2d91d0e4a244d1df2dab28",
-      measurementId: "G-EFM4L16HF8"
-    };
-    
-      // Initialize Firebase
-    this.app = initializeApp(firebaseConfig);
-    this.db = getFirestore(this.app);
-    this.webStorage = getStorage(this.app);
-    this.auth = initializeAuth(getApp(), { persistence: indexedDBLocalPersistence });      
-    //this.auth = getAuth(this.app);
-    this.active = true;
-    this.auth.onAuthStateChanged(async (user: { uid: string; email: string; })=>{
-      this.user = user;
-      if(user){
-        this._isLogged.next(true);
-        this.setUserAndEmail(user.uid, user.email);
-      }
-      else{
-        this._isLogged.next(false);
-      }
-      console.log(user);
-    });
-  }
-
   public imageUpload(blob: Blob): Promise<any> {
-    return new Promise(async (resolve, reject) => {
-      var freeConnection = false;
-      if(this.auth.currentUser==null){
-        try {
-
-          await signInAnonymously(this.auth);
-          freeConnection = true;
-        } catch (error) {
-          reject(error);
-        }
-      }
-      const path = FIRESTORAGE_PREFIX_PATH+"/"+Date.now() + '.jpg';
-      const storageRef = ref(this.webStorage, path);
-      const metadata = {
-        contentType: 'image/jpeg',
-      };
-      uploadBytes(storageRef, blob).then(async (snapshot) => {
-        getDownloadURL(storageRef).then(async downloadURL => {
-          if(freeConnection)
-              await signOut(this.auth);
-          resolve({
-            path,
-            image: downloadURL,
-          });
-        }).catch(async error=>{
-          if(freeConnection)
-              await signOut(this.auth);
-          reject(error);
-        });
-      }).catch(async (error: any) => {
-        if(freeConnection)
-              await signOut(this.auth);
-        reject(error);
-      });
-    });
+    return this.fileUpload(blob,'image/jpeg', 'image', ".jpg");
   }
 
   ngOnDestroy(): void {
     deleteApp(this.app).then(value=>{
       this.analytics = null;
       this.active = false;
-    }).catch((reason: any)=>{
+    }).catch(reason=>{
       console.log("Error disconnecting Firebase app: ", reason);
     });
   }
@@ -162,11 +112,20 @@ export class FirebaseWebService extends FirebaseService implements OnDestroy{
     });
   }
 
+  public createDocumentWithId(collectionName:string, data:any, docId:string):Promise<void>{
+    return new Promise((resolve,reject)=>{
+      const collectionRef = collection(this.db, collectionName);
+      const docRef = doc(this.db, 'usuarios', docId);
+      setDoc(docRef, data).then(docRef => resolve()
+      ).catch(err =>  reject(err));
+    });
+  }
+
   public updateDocument(collectionName:string, document:string, data:any):Promise<void>{
     return new Promise(async (resolve,reject)=>{
       const collectionRef = collection(this.db, collectionName);
-      setDoc(doc(collectionRef,document),data).then(() => resolve()
-      ).catch(err => reject(err));
+      updateDoc(doc(collectionRef,document),data).then(docRef => resolve()
+      ).catch(err =>  reject(err));
     });
   }
 
@@ -192,7 +151,7 @@ export class FirebaseWebService extends FirebaseService implements OnDestroy{
     });
   }
 
-  public getDocumentBy(collectionName:string, field:string, value:any):Promise<FirebaseDocument[]>{
+  public getDocumentsBy(collectionName:string, field:string, value:any):Promise<FirebaseDocument[]>{
     return new Promise(async (resolve, reject)=>{
       const q = query(collection(this.db, collectionName), where(field, "==", value));
 
@@ -201,8 +160,20 @@ export class FirebaseWebService extends FirebaseService implements OnDestroy{
         return {id:doc.id, data:doc.data()}}));
     });
   }
-  
-  public subscribeToCollection(collectionName: string, subject: BehaviorSubject<any[]>, mapFunction:(el:DocumentData)=>any):Unsubscribe{
+
+  public deleteDocument(collectionName:string, docId:string):Promise<void>{
+    return new Promise(async (resolve, reject)=>{
+      try {
+        await deleteDoc(doc(this.db, collectionName, docId));  
+      } catch (error) {
+        reject(error);
+      }
+      
+
+    });
+  }
+
+  public subscribeToCollection(collectionName, subject: BehaviorSubject<any[]>, mapFunction:(el:DocumentData)=>any):Unsubscribe{
     return onSnapshot(collection(this.db, collectionName), (snapshot) => {
       subject.next(snapshot.docs.map<any>(doc=>mapFunction(doc)));
       }, error=>{});
@@ -277,11 +248,10 @@ export class FirebaseWebService extends FirebaseService implements OnDestroy{
   }
   
   public async connectUserWithEmailAndPassword(email: string, password: string):Promise<UserCredential> {
-    return signInWithEmailAndPassword(this.auth, email, password);
-}
+      return signInWithEmailAndPassword(this.auth, email, password);
+  }
 
   public deleteUser():Promise<void>{
     return deleteUser(this.user);
   }
 }
-

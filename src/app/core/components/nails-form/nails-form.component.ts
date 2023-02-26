@@ -15,7 +15,7 @@ export class NailsFormComponent {
 
   @Input('nails') set nails(nails: Nails) {
     if (nails) {
-      this.form.controls['id'].setValue(nails.id);
+      this.form.controls['docId'].setValue(nails.docId);
       this.form.controls['name'].setValue(nails.name);
       this.form.controls['price'].setValue(nails.price);
       this.form.controls['image'].setValue(nails.image);
@@ -29,6 +29,7 @@ export class NailsFormComponent {
   ) 
   { this.form = this.formBuilder.group({
       id: [null],
+      docId: [''],
       name: ['', [Validators.required]],
       price: ['', [Validators.required]],
       image: ['']
@@ -36,11 +37,11 @@ export class NailsFormComponent {
   }
 
   onSubmit() {
-    this.modalController.dismiss({ nails: this.form.value, mode: this.mode });
+    this.modalController.dismiss({ nails: this.form.value, mode: this.mode }, 'ok');
   }
 
   onDismiss() {
-    this.modalController.dismiss();
+    this.modalController.dismiss(null, 'cancel');
   }
 
 }

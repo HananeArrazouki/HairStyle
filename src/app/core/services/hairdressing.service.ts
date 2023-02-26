@@ -10,34 +10,6 @@ import { FileUploaded, FirebaseService } from './firebase/firebase.service';
 })
 export class HairdressingService {
 
-  // private _hairDressingOptions: Hairdressing[] = [
-  //   {
-  //     id: 1,
-  //     name: "wash and cut",
-  //     price: 15.5,
-  //     image: "/assets/icon_menu/washAndCut.png"
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "highlights",
-  //     price: 60,
-  //     image: "/assets/icon_menu/highlights.png"
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "professional color",
-  //     price: 34.99,
-  //     image: "/assets/icon_menu/professionalColour.png"
-  //   },
-  //   {
-  //     id: 4,
-  //     name: "brushing",
-  //     price: 16.99,
-  //     image: "/assets/icon_menu/brushing.png"
-  //   },
-  // ]
-
-  // id : number = this._hairDressingOptions.length + 1
   private _hairdressingSubject: BehaviorSubject<Hairdressing[]> = new BehaviorSubject([])
   public hairdressingOptionsList$ = this._hairdressingSubject.asObservable();
 
@@ -45,7 +17,13 @@ export class HairdressingService {
   constructor(
     private firebase:FirebaseService
   ) {
-    this.unsubscr = this.firebase.subscribeToCollection('hairdressing',this._hairdressingSubject, this.mapHairdressing);
+    try{
+
+      this.unsubscr = this.firebase.subscribeToCollection('hairdressing',this._hairdressingSubject, this.mapHairdressing);
+    }
+    catch(error){
+      console.log(error);
+    }    
   }
 
   ngOnDestroy(): void {
@@ -53,9 +31,10 @@ export class HairdressingService {
   }
 
   private mapHairdressing(doc:DocumentData){
+    console.log(doc)
     return {
       id:0,
-      docId: doc['id'],
+      docId:doc['data']().docId,
       name:doc['data']().name,
       price:doc['data']().price,
       image:doc['data']().image,
@@ -72,7 +51,7 @@ export class HairdressingService {
         var hairdressing = (await this.firebase.getDocument('hairdressing', id));
         resolve({
           id:0,
-          docId: hairdressing['id'],
+          docId: hairdressing.data['docId'],
           name: hairdressing.data['name'],
           price:hairdressing.data['price'],
           image:hairdressing.data['image'], 
@@ -94,41 +73,61 @@ export class HairdressingService {
     });
   }
 
-  async addHairdressingOption(hairdressing: Hairdressing) {
-    var _hairDressing = {
-      id:0,
-      docId: hairdressing.docId,
-      name:hairdressing.name,
-      price:hairdressing.price,
-    };
-    if(hairdressing['pictureFile']){
-      var response = await this.uploadImage(hairdressing['pictureFile']);
-      _hairDressing['picture'] = response.image;
-    }
+  // async addHairdressingOption(hairdressing: Hairdressing) {
+  //   var _hairDressing = {
+  //     id:0,
+  //     docId: hairdressing.docId,
+  //     name:hairdressing.name,
+  //     price:hairdressing.price,
+  //   };
+  //   if(hairdressing['pictureFile']){
+  //     var response = await this.uploadImage(hairdressing['pictureFile']);
+  //     _hairDressing['picture'] = response.image;
+  //   }
+  //   try {
+  //     await this.firebase.createDocument('hairdressing', _hairDressing);  
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
+
+  async addHairdressingOption(haidressing: Hairdressing) {
     try {
-      await this.firebase.createDocument('hairdressing', _hairDressing);  
-    } catch (error) {
+      await this.firebase.createDocument("hairdressing", haidressing).then((docId) => {
+        haidressing.docId = docId
+        this.updateHairdressingOption(haidressing)
+      });
+    } catch(error) {
       console.log(error);
     }
   }
 
-  async updateHairdressingOption(hairdressing: Hairdressing){
-    var _hairDressing = {
-      id:0,
-      docId: hairdressing.docId,
-      name:hairdressing.name,
-      price:hairdressing.price
-    };
-    if(hairdressing['pictureFile']){
-      var response:FileUploaded = await this.uploadImage(hairdressing['pictureFile']);
-      _hairDressing['picture'] = response.file;
-    }
+  async updateHairdressingOption(hairdressing: Hairdressing) {
     try {
-      await this.firebase.updateDocument('hairdressing', hairdressing.docId, _hairDressing);  
+      console.log(hairdressing);
+      await this.firebase.updateDocument('hairdressing', hairdressing.docId, hairdressing);
     } catch (error) {
       console.log(error);
-    }
+    } 
   }
+
+  // async updateHairdressingOption(hairdressing: Hairdressing){
+  //   var _hairDressing = {
+  //     id:0,
+  //     docId: hairdressing.docId,
+  //     name:hairdressing.name,
+  //     price:hairdressing.price
+  //   };
+  //   if(hairdressing['pictureFile']){
+  //     var response:FileUploaded = await this.uploadImage(hairdressing['pictureFile']);
+  //     _hairDressing['picture'] = response.file;
+  //   }
+  //   try {
+  //     await this.firebase.updateDocument('hairdressing', hairdressing.docId, _hairDressing);  
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 
   //Delete an option of the hairdressing.
   async deleteHairdressingOption(hairdressing: Hairdressing) {

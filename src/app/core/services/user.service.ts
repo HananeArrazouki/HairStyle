@@ -60,11 +60,10 @@ export class UserService {
       if(!this._isLogged.value){
         try {
           var _user:UserCredential = (await this.firebase.createUserWithEmailAndPassword(data.email, data.password));
-          await this.firebase.createDocumentWithId('usuarios', 
+          await this.firebase.createDocumentWithId('user', 
             {
               uid:_user.user.uid,
               username:data.username, 
-              nickname:"",
               picture:"",
               email:data.email,
               provider:'firebase',

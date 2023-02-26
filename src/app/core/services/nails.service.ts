@@ -9,37 +9,18 @@ import { FirebaseService, FileUploaded } from './firebase/firebase.service';
 })
 export class NailsService {
 
-  // private _nailsOptions: Nails[] = [
-  //   {
-  //     id: 1,
-  //     name: "Normal Polish",
-  //     price: 19,
-  //     image: "./../../assets/icon_menu/PolishNails.png"
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "semi-permanent polish",
-  //     price: 25,
-  //     image: "./../../assets/icon_menu/PermanentNails.png"
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "Gel",
-  //     price: 30,
-  //     image: "./../../assets/icon_menu/GelNails.png"
-  //   },
-  // ]
-
-  //id : number = this._nailsOptions.length + 1
-
   private _nailsSubject: BehaviorSubject<Nails[]> = new BehaviorSubject([])
   public nailsOptionsList$ = this._nailsSubject.asObservable();
 
-unsubscr;
+  unsubscr;
   constructor(
     private firebase:FirebaseService
   ) {
-    this.unsubscr = this.firebase.subscribeToCollection('nails',this._nailsSubject, this.mapNails);
+    try{
+      this.unsubscr = this.firebase.subscribeToCollection('nails',this._nailsSubject, this.mapNails);
+    }catch(error) {
+      console.log(error);
+    } 
   }
 
   ngOnDestroy(): void {
@@ -49,7 +30,7 @@ unsubscr;
   private mapNails(doc:DocumentData){
     return {
       id:0,
-      docId: doc['id'],
+      docId: doc['data']().docId,
       name:doc['data']().name,
       price:doc['data']().price,
       image:doc['data']().image,
@@ -66,7 +47,7 @@ unsubscr;
         var nails = (await this.firebase.getDocument('nails', id));
         resolve({
           id:0,
-          docId: nails['id'],
+          docId: nails.data['docId'],
           name: nails.data['name'],
           price:nails.data['price'],
           image:nails.data['image'], 
@@ -88,41 +69,61 @@ unsubscr;
     });
   }
 
+  // async addNailsOption(nails: Nails) {
+  //   var _nails = {
+  //     id:0,
+  //     docId: nails.docId,
+  //     name:nails.name,
+  //     price:nails.price,
+  //   };
+  //   if(nails['pictureFile']){
+  //     var response = await this.uploadImage(nails['pictureFile']);
+  //     _nails['picture'] = response.image;
+  //   }
+  //   try {
+  //     await this.firebase.createDocument('nails', _nails);  
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
+
   async addNailsOption(nails: Nails) {
-    var _nails = {
-      id:0,
-      docId: nails.docId,
-      name:nails.name,
-      price:nails.price,
-    };
-    if(nails['pictureFile']){
-      var response = await this.uploadImage(nails['pictureFile']);
-      _nails['picture'] = response.image;
-    }
     try {
-      await this.firebase.createDocument('nails', _nails);  
-    } catch (error) {
+      await this.firebase.createDocument("nails", nails).then((docId) => {
+        nails.docId = docId
+        this.updateNailsOption(nails)
+      });
+    } catch(error) {
       console.log(error);
     }
   }
 
-  async updateNailsOption(nails: Nails){
-    var _nails = {
-      id:0,
-      docId: nails.docId,
-      name:nails.name,
-      price:nails.price
-    };
-    if(nails['pictureFile']){
-      var response:FileUploaded = await this.uploadImage(nails['pictureFile']);
-      _nails['picture'] = response.file;
-    }
+  async updateNailsOption(nails: Nails) {
     try {
-      await this.firebase.updateDocument('nails', nails.docId, _nails);  
+      console.log(nails);
+      await this.firebase.updateDocument('nails', nails.docId, nails);
     } catch (error) {
       console.log(error);
-    }
+    } 
   }
+
+  // async updateNailsOption(nails: Nails){
+  //   var _nails = {
+  //     id:0,
+  //     docId: nails.docId,
+  //     name:nails.name,
+  //     price:nails.price
+  //   };
+  //   if(nails['pictureFile']){
+  //     var response:FileUploaded = await this.uploadImage(nails['pictureFile']);
+  //     _nails['picture'] = response.file;
+  //   }
+  //   try {
+  //     await this.firebase.updateDocument('nails', nails.docId, _nails);  
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 
   //Delete an option of the nails.
   async deleteNailsOption(nails: Nails) {

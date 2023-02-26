@@ -15,7 +15,7 @@ export class MakeupFormComponent {
 
   @Input('makeup') set makeup(makeup: Makeup) {
     if (makeup) {
-      this.form.controls['id'].setValue(makeup.id);
+      this.form.controls['docId'].setValue(makeup.docId);
       this.form.controls['name'].setValue(makeup.name);
       this.form.controls['price'].setValue(makeup.price);
       this.form.controls['image'].setValue(makeup.image);
@@ -29,6 +29,7 @@ export class MakeupFormComponent {
   ) 
   { this.form = this.formBuilder.group({
       id: [null],
+      docId:[''],
       name: ['', [Validators.required]],
       price: ['', [Validators.required]],
       image: ['']
@@ -36,11 +37,11 @@ export class MakeupFormComponent {
   }
 
   onSubmit() {
-    this.modalController.dismiss({ makeup: this.form.value, mode: this.mode });
+    this.modalController.dismiss({ makeup: this.form.value, mode: this.mode }, 'ok');
   }
 
   onDismiss() {
-    this.modalController.dismiss();
+    this.modalController.dismiss(null, 'cancel');
   }
 
 

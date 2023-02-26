@@ -50,7 +50,12 @@ export class MakeupService {
   constructor(
     private firebase:FirebaseService
   ) {
-    this.unsubscr = this.firebase.subscribeToCollection('makeup',this._makeupSubject, this.mapMakeup);
+    try
+    {
+      this.unsubscr = this.firebase.subscribeToCollection('makeup',this._makeupSubject, this.mapMakeup);
+    }catch(error) {
+      console.log(error);
+    }    
   }
 
   ngOnDestroy(): void {
@@ -60,10 +65,10 @@ export class MakeupService {
   private mapMakeup(doc:DocumentData){
     return {
       id:0,
-      docId: doc['id'],
-      name:doc['data']().name,
-      price:doc['data']().price,
-      image:doc['data']().image,
+      docId: doc['data'].docId,
+      name: doc['data']().name,
+      price: doc['data']().price,
+      image: doc['data']().image,
     };
   }
   
@@ -77,7 +82,7 @@ export class MakeupService {
         var makeup = (await this.firebase.getDocument('makeup', id));
         resolve({
           id:0,
-          docId: makeup['id'],
+          docId: makeup.data['docId'],
           name: makeup.data['name'],
           price:makeup.data['price'],
           image:makeup.data['image'], 
@@ -99,41 +104,61 @@ export class MakeupService {
     });
   }
 
+  // async addMakeupOption(makeup: Makeup) {
+  //   var _makeup = {
+  //     id:0,
+  //     docId: makeup.docId,
+  //     name:makeup.name,
+  //     price:makeup.price,
+  //   };
+  //   if(makeup['pictureFile']){
+  //     var response = await this.uploadImage(makeup['pictureFile']);
+  //     _makeup['picture'] = response.image;
+  //   }
+  //   try {
+  //     await this.firebase.createDocument('makeup', _makeup);  
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
+
   async addMakeupOption(makeup: Makeup) {
-    var _makeup = {
-      id:0,
-      docId: makeup.docId,
-      name:makeup.name,
-      price:makeup.price,
-    };
-    if(makeup['pictureFile']){
-      var response = await this.uploadImage(makeup['pictureFile']);
-      _makeup['picture'] = response.image;
-    }
     try {
-      await this.firebase.createDocument('makeup', _makeup);  
-    } catch (error) {
+      await this.firebase.createDocument("makeup", makeup).then((docId) => {
+        makeup.docId = docId
+        this.updateMakeupOption(makeup)
+      });
+    } catch(error) {
       console.log(error);
     }
   }
 
-  async updateMakeupOption(makeup: Makeup){
-    var _makeup = {
-      id:0,
-      docId: makeup.docId,
-      name:makeup.name,
-      price:makeup.price
-    };
-    if(makeup['pictureFile']){
-      var response:FileUploaded = await this.uploadImage(makeup['pictureFile']);
-      _makeup['picture'] = response.file;
-    }
+  async updateMakeupOption(makeup: Makeup) {
     try {
-      await this.firebase.updateDocument('makeup', makeup.docId, _makeup);  
+      console.log(makeup);
+      await this.firebase.updateDocument('makeup', makeup.docId, makeup);
     } catch (error) {
       console.log(error);
-    }
+    } 
   }
+
+  // async updateMakeupOption(makeup: Makeup){
+  //   var _makeup = {
+  //     id:0,
+  //     docId: makeup.docId,
+  //     name:makeup.name,
+  //     price:makeup.price
+  //   };
+  //   if(makeup['pictureFile']){
+  //     var response:FileUploaded = await this.uploadImage(makeup['pictureFile']);
+  //     _makeup['picture'] = response.file;
+  //   }
+  //   try {
+  //     await this.firebase.updateDocument('makeup', makeup.docId, _makeup);  
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 
   //Delete an option of the makeup.
   async deleteMakeupOption(makeup: Makeup) {

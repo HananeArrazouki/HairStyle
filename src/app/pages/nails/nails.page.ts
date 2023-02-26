@@ -67,31 +67,31 @@ export class NailsPage {
   }
 
 
-  // onDeleteNailsOption(nails : Nails) {
-  //   this.onDeleteAlert(nails)
-  // }
+  onDeleteNailsOption(nails : Nails) {
+    this.onDeleteAlert(nails)
+  }
 
-  // async onDeleteAlert(nails: Nails) {
-  //   const alert = await this.alertController.create({
-  //     header: '¿Are you sure you want to delete ' + nails.name + '?',
-  //     buttons: [
-  //       {
-  //         text: 'Cancel',
-  //         role: 'cancel',
-  //         handler: () => {
-  //         },
-  //       },
-  //       {
-  //         text: 'Delete',
-  //         role: 'confirm',
-  //         handler: () => {
-  //           this._nailsService.deleteNailsOptionById(nails.id);
-  //         },
-  //       },
-  //     ],
-  //   });
-  //   await alert.present();
-  //   const { role } = await alert.onDidDismiss();
-  // }
+  async onDeleteAlert(nails: Nails) {
+    const alert = await this.alertController.create({
+      header: '¿Are you sure you want to delete ' + nails.name + '?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+          },
+        },
+        {
+          text: 'Delete',
+          role: 'confirm',
+          handler: () => {
+            this._nailsService.deleteNailsOption(nails);
+          },
+        },
+      ],
+    });
+    await alert.present();
+    const { role } = await alert.onDidDismiss();
+  }
 
 }
