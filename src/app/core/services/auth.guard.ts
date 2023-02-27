@@ -6,8 +6,7 @@ import { UserService } from './user.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuardService implements CanActivate{
-
+export class AuthGuard implements CanActivate {
   constructor(
     private user:UserService,
     private router:Router
@@ -22,4 +21,5 @@ export class AuthGuardService implements CanActivate{
           this.router.navigate(['login']);
       }));
   }
+  
 }

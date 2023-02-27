@@ -20,8 +20,8 @@ import es from '@angular/common/locales/es'
 import { DateTimeSelectableComponent } from './components/date-time-selectable/date-time-selectable.component';
 import { AppointmentFormComponent } from './components/appointment-form/appointment-form.component';
 import { AppointmentComponent } from './components/appointment/appointment.component';
-import { SigninComponent } from '../pages/login/components/signin/signin.component';
-import { SignupComponent } from '../pages/login/components/signup/signup.component';
+import { SigninComponent } from './components/signin/signin.component';
+import { SignupComponent } from './components/signup/signup.component';
 
 
 registerLocaleData(es)
