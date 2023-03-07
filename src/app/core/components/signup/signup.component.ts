@@ -30,8 +30,8 @@ export class SignupComponent {
       email:this.form.value.email,
       username:this.form.value.email,
       password:this.form.value.password,
-      first_name:this.form.value.first_name,
-      last_name:this.form.value.last_name
+      firstName:this.form.value.first_name,
+      lastName:this.form.value.last_name
     }, 'ok');
   }
 

@@ -38,12 +38,11 @@ export class SigninComponent {
       try {
         if(response.role=='ok'){
           await this.user.register(response.data);
-          this.router.navigate(['folder/Home'], {replaceUrl:true});
+          this.router.navigate(['../../../pages/home'], {replaceUrl:true});
         }
         
       } catch (error) {
-        console.log(error);
-  
+        console.log(error); 
       }
     });
     modal.present();
@@ -52,10 +51,9 @@ export class SigninComponent {
   async onSignIn(){
     try {
       await this.user.login(this.form.value);
-      this.router.navigate(['folder/Home'], {replaceUrl:true});
+      this.router.navigate(['../../../pages/home'], {replaceUrl:true});
     } catch (error) {
       console.log(error);
-
     }
     
   }

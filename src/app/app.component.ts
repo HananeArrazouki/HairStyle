@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { UserService } from './core/services/user.service';
+import 'zone.js';
+// import 'zone.js/dist/long-stack-trace-zone.js';
 
 @Component({
   selector: 'app-root',
