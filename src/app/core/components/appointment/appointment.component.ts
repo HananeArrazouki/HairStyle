@@ -9,6 +9,7 @@ import { HairdressingService } from '../../services/hairdressing.service';
 import { MakeupService } from '../../services/makeup.service';
 import { NailsService } from '../../services/nails.service';
 import { isLowResolution as lowres }  from '../../utils/screen';
+import { LocalService } from '../../services/local.service';
 
 @Component({
   selector: 'app-appointment',
@@ -24,38 +25,43 @@ export class AppointmentComponent {
 
   @Input('appointment') set appointment(appointment: Appointment){
     this._appointment = appointment;
-    //this.loadHairAndNailsAndMakeup(appointment);
+    this.loadAppointments(appointment);
    
   }
-
-  constructor(
-    private hairdressingSvc: HairdressingService,
-    private nailsSvc: NailsService,
-    private makeupSvc:MakeupService,
-    //public locale: LocaleService
-  ){
-    
-  }
-/*
-  private async loadHairAndNailsAndMakeup(appointment: Appointment){
-    this._hairDressing.next(await this.hairdressingSvc.getHairDressingOptionsById(appointment.hairdressigId));
-    //this._makeUp.next(await this.makeupSvc.getMakeupOptionsById(appointment.makeupId));
-    //this._nails.next(await this.nailsSvc.getNailsOptionsById(appointment.nailsId));
-  }
-  get assignment(){
-    return this._appointment;
-  }
-
-  isLowResolution = lowres;
-  
-
-  private _hairDressing:BehaviorSubject<Hairdressing> = new BehaviorSubject<Hairdressing>(this._appointment);
+  private _hairDressing:BehaviorSubject<Hairdressing> = new BehaviorSubject<Hairdressing>(null);
   private _makeUp:BehaviorSubject<Makeup> = new BehaviorSubject<Makeup>(null);
   private _nails:BehaviorSubject<Nails> = new BehaviorSubject<Nails>(null);
 
   hairdressing$: Observable<Hairdressing> = this._hairDressing.asObservable();
   makeup$: Observable<Makeup> = this._makeUp.asObservable();
   nails$: Observable<Nails> = this._nails.asObservable();
+
+  private async loadAppointments(appointment: Appointment){
+
+    this._hairDressing.next(await this.hairdressingSvc.getHairDressingOptionsById(appointment.hairdressigId));
+    this._makeUp.next(await this.makeupSvc.getMakeupOptionsById(appointment.makeupId));
+    this._nails.next(await this.nailsSvc.getNailsOptionsById(appointment.nailsId));
+
+  }
+
+  constructor(
+    private hairdressingSvc: HairdressingService,
+    private nailsSvc: NailsService,
+    private makeupSvc:MakeupService,
+    public locale: LocalService
+  ){
+    
+  }
+
+  
+  get assignment(){
+    return this._appointment;
+  }
+
+  isLowResolution = lowres;
+  
+/*
+  
   
 */
   onEditClick(slide: IonItemSliding){

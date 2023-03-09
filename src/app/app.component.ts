@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { UserService } from './core/services/user.service';
 import 'zone.js';
+import { LocalService } from './core/services/local.service';
 // import 'zone.js/dist/long-stack-trace-zone.js';
 
 @Component({
@@ -15,7 +16,8 @@ export class AppComponent {
   constructor(
     private translate: TranslateService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private locale: LocalService,
   ) {
     this.translate.setDefaultLang('es');
     this.translate.get('home.title').subscribe((Text: any) =>{
@@ -28,9 +30,11 @@ export class AppComponent {
     switch(this.language) {
       case 0:
         this.translate.setDefaultLang('es')
+        this.locale.registerCulture('es')
         break
       case 1:
         this.translate.setDefaultLang('en')
+        this.locale.registerCulture('es')
         break
     }
   }

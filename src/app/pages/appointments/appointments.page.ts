@@ -78,7 +78,8 @@ export class AppointmentsPage {
       component: AppointmentFormComponent,
       componentProps: {
         appointment: appointment
-      }
+      },
+      cssClass:"modal-full-right-side"
     });
     modalController.present();
     modalController.onDidDismiss().then(result => {

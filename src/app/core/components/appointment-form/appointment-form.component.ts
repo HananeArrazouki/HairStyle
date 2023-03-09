@@ -16,9 +16,10 @@ export class AppointmentFormComponent {
   @Input('appointment') set appointment(appointment: Appointment) {
     if (appointment) {
       this.form?.controls['docId'].setValue(appointment.docId);
-      this.form?.controls['name'].setValue(appointment.hairdressigId);
-      this.form?.controls['price'].setValue(appointment.makeupId);
-      this.form?.controls['image'].setValue(appointment.nailsId);
+      this.form?.controls['hairdressigId'].setValue(appointment.hairdressigId);
+      this.form?.controls['makeupId'].setValue(appointment.makeupId);
+      this.form?.controls['nailsId'].setValue(appointment.nailsId);
+      this.form.controls['dateTime'].setValue(appointment.dateTime);
       this.mode = "Edit";
     }
   }
@@ -28,19 +29,21 @@ export class AppointmentFormComponent {
     private formBuilder: FormBuilder,) { 
 
       this.form = this.formBuilder.group({
-        id: [null],
+        id: [0],
         hairdressigId: [''],
         makeupId: [''],
-        nailsId: ['']
+        nailsId: [''],
+        dateTime:[null],
       });      
     }
 
 
   onSubmit() {
-    this.modalController.dismiss({ hairdressing: this.form?.value, mode: this.mode});
+    this.modalController.dismiss({ appointment: this.form?.value, mode: this.mode}, 'ok');
   }
 
   onDismiss() {
-    this.modalController.dismiss();
+    this.modalController.dismiss(null, 'cancel');
   }
+
 }

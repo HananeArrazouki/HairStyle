@@ -13,6 +13,6 @@
     <app-makeup-selectable></app-makeup-selectable>
     <app-nails-selectable></app-nails-selectable>
     <app-date-time-selectable></app-date-time-selectable>
-    <ion-button [disabled]="!form.valid" type="submit">{{(mode=="New"?"modal.add":"modal.modify") | translate}}</ion-button>
+    <ion-button [disabled]="!form.valid" type="submit">{{(mode=="New"?"appointment.addAppointment":"appointment.addAppointment") | translate | titlecase}}</ion-button>
   </form>
 </ion-content>

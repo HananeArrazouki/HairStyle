@@ -11,6 +11,14 @@
                     "addMakeup": "ñadir Maquillaje",
                     "modifyMakeup": "Modify Maquillaje"
           },
+          "appointment": {                    
+                    "addAppointment": "Añadir Cita",
+                    "modifyAppointment": "Modificar Cita"
+          },
+          "modal": {                    
+                    "delete": "Borrar",
+                    "modify": "Modificar"
+          },
           "form": {
                     "enterName": "Introduce el nombre",
                     "enterPrice": "Introduce el precio",
