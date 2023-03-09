@@ -11,5 +11,11 @@ ion-thumbnail {
 #description {
           margin: 5%;
           font-size: large;
-          //padding: 5%;
+}
+
+ion-button{
+          --padding-top: 25px;
+          --padding-bottom: 25px;
+          --border-style: solid;
+          --border-height: 5px
 }

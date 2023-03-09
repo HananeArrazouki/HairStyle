@@ -15,7 +15,7 @@ export class AppointmentFormComponent {
 
   @Input('appointment') set appointment(appointment: Appointment) {
     if (appointment) {
-      this.form?.controls['id'].setValue(appointment.id);
+      this.form?.controls['docId'].setValue(appointment.docId);
       this.form?.controls['name'].setValue(appointment.hairdressigId);
       this.form?.controls['price'].setValue(appointment.makeupId);
       this.form?.controls['image'].setValue(appointment.nailsId);

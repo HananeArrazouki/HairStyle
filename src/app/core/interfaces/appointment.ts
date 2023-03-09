@@ -1,9 +1,9 @@
 export interface Appointment {
           id: number
           docId?: string,
-          hairdressigId: number;
-          makeupId: number;
-          nailsId: number;
-          crearAt:string;
+          hairdressigId: string;
+          makeupId: string;
+          nailsId: string;
+          createdAt:string;
           dateTime:string;
 }

@@ -17,14 +17,17 @@ import { isLowResolution as lowres }  from '../../utils/screen';
 })
 export class AppointmentComponent {
 
+  private _appointment: Appointment | undefined;
+
   @Output() onEdit = new EventEmitter;
   @Output() onDelete = new EventEmitter;
 
   @Input('appointment') set appointment(appointment: Appointment){
-    //this._appointment = appointment;
+    this._appointment = appointment;
     //this.loadHairAndNailsAndMakeup(appointment);
    
   }
+
   constructor(
     private hairdressingSvc: HairdressingService,
     private nailsSvc: NailsService,
@@ -44,7 +47,7 @@ export class AppointmentComponent {
   }
 
   isLowResolution = lowres;
-  private _appointment: Appointment | undefined;
+  
 
   private _hairDressing:BehaviorSubject<Hairdressing> = new BehaviorSubject<Hairdressing>(this._appointment);
   private _makeUp:BehaviorSubject<Makeup> = new BehaviorSubject<Makeup>(null);
@@ -54,7 +57,7 @@ export class AppointmentComponent {
   makeup$: Observable<Makeup> = this._makeUp.asObservable();
   nails$: Observable<Nails> = this._nails.asObservable();
   
-
+*/
   onEditClick(slide: IonItemSliding){
     slide.close();
     this.onEdit.emit(this.appointment);
@@ -65,5 +68,5 @@ export class AppointmentComponent {
     this.onDelete.emit(this.appointment);
   }
 
-  */
+  
 }

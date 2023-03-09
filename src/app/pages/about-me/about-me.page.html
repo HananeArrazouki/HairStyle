@@ -19,7 +19,21 @@
       </ion-col>
       <ion-col size="auto"></ion-col>
     </ion-row>
-  </ion-grid>
+  </ion-grid><br><br>
+
+    <ion-button (click)="onLanguage()" expand="block" color="tertiary">
+      <ion-icon slot="start" name="language-sharp"></ion-icon>
+      <ion-label>{{"language.language" | translate}}</ion-label>
+    </ion-button><br><br>
+
+  <ion-footer>
+    <ion-toolbar>
+      <ion-item (click)="signOut()" button>
+        <ion-icon slot="start" name="log-out-outline"></ion-icon>
+        <ion-label>{{"logout.close" | translate}}</ion-label>
+      </ion-item>      
+    </ion-toolbar>
+  </ion-footer>
   
 </ion-content>
 

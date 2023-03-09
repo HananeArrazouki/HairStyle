@@ -15,10 +15,7 @@ import { NailsService } from 'src/app/core/services/nails.service';
 export class AppointmentsPage {
 
   constructor(
-    private appointmentService: AppointmentService, 
-    private hairdressingService: HairdressingService, 
-    private makeupService: MakeupService,
-    private nailsService: NailsService,
+    private appointmentService: AppointmentService,
     private alertController: AlertController,
     private modalController: ModalController) { }
 
@@ -26,9 +23,9 @@ export class AppointmentsPage {
     return this.appointmentService.appointmentList$
   }
 
-  getAppointmentById(id : number){
-    return this.appointmentService.getAppointmentById(id)
-  }
+  // getAppointmentById(id : number){
+  //   return this.appointmentService.getAppointmentById(id)
+  // }
 
   // getHairdressingSelectedById(id: number){
   //   return this.hairdressingService.getHairDressingOptionsById(id)
@@ -41,10 +38,6 @@ export class AppointmentsPage {
   // getMakeupSelectedById(id: number){
   //   return this.makeupService.getMakeupOptionsById(id)
   // }
-
-  deleteAppointmentByID(id: number) {
-    this.appointmentService.deleteAppointmentById(id)
-  }
 
   
 
@@ -63,12 +56,13 @@ export class AppointmentsPage {
           text: 'Yes',
           role: 'confirm',
           handler: () => {
-            this.deleteAppointmentByID(appointment.id)
+            this.appointmentService.deleteAppointmentById(appointment.docId)
           },
         },
       ],
     });
     await alert.present();
+    const { role } = await alert.onDidDismiss();
   }
 
   onNewAppointment() {
