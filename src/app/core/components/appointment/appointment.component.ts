@@ -18,7 +18,7 @@ import { LocalService } from '../../services/local.service';
 })
 export class AppointmentComponent {
 
-  private _appointment: Appointment | undefined;
+  private _appointment: Appointment;
 
   @Output() onEdit = new EventEmitter;
   @Output() onDelete = new EventEmitter;
@@ -54,16 +54,13 @@ export class AppointmentComponent {
   }
 
   
-  get assignment(){
+  get appointment(){
     return this._appointment;
   }
 
   isLowResolution = lowres;
   
-/*
-  
-  
-*/
+
   onEditClick(slide: IonItemSliding){
     slide.close();
     this.onEdit.emit(this.appointment);

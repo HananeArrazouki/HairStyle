@@ -9,10 +9,10 @@
 
 <ion-content>
   <form [formGroup]="form" (ngSubmit)="onSubmit()" (keyup.enter)="onSubmit()">
-    <app-hairdressing-selectable></app-hairdressing-selectable>
-    <app-makeup-selectable></app-makeup-selectable>
-    <app-nails-selectable></app-nails-selectable>
-    <app-date-time-selectable></app-date-time-selectable>
+    <app-hairdressing-selectable formControlName="hairdressigId"></app-hairdressing-selectable>
+    <app-makeup-selectable formControlName="makeupId"></app-makeup-selectable>
+    <app-nails-selectable formControlName="nailsId"></app-nails-selectable>
+    <app-date-time-selectable formControlName="dateTime"></app-date-time-selectable>
     <ion-button [disabled]="!form.valid" type="submit">{{(mode=="Edit"?"form.modify":"form.add") | translate | titlecase}}</ion-button>
   </form>
 </ion-content>

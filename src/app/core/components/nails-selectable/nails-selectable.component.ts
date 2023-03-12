@@ -1,5 +1,6 @@
 import { Component, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { IonAccordionGroup } from '@ionic/angular';
 import { Nails } from '../../interfaces/nails';
 import { NailsService } from '../../services/nails.service';
 
@@ -17,26 +18,43 @@ const NAILS_PROFILE_VALUE_ACCESSOR: any = {
 })
 export class NailsSelectableComponent implements ControlValueAccessor{
 
-  nailsSelected : Nails | undefined
+  nailsSelected : Nails = null
   propagateChange = (_:any) => { }
+  isDisabled:boolean = false;
 
-  constructor( private mailsService: NailsService) { }
+  constructor( private nailsService: NailsService) { }
 
   getNailsList() {
-    return this.mailsService.nailsOptionsList$
+    return this.nailsService.nailsOptionsList$
   } 
 
-  writeValue(obj: any): void {
-    throw new Error('Method not implemented.');
+  async writeValue(obj: any) {
+    try {
+      this.nailsSelected = await this.nailsService.getNailsOptionsById(obj);
+    } catch (error) {
+      console.log("No se ha podido recupera los datos: " + error);
+    }
   }
+
   registerOnChange(fn: any): void {
-    throw new Error('Method not implemented.');
+    this.propagateChange = fn;
   }
+
   registerOnTouched(fn: any): void {
-    throw new Error('Method not implemented.');
   }
+
   setDisabledState?(isDisabled: boolean): void {
-    throw new Error('Method not implemented.');
+    this.isDisabled = isDisabled;
+  }
+
+  getHairdressingList() {
+    return this.nailsService.getNailsOptions();
+  }
+
+  onItemClicked(nails: Nails, accordion: IonAccordionGroup) {
+    this.nailsSelected = nails;
+    accordion.value = '';
+    this.propagateChange(this.nailsSelected.docId);
   }
 
 

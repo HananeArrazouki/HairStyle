@@ -30,7 +30,7 @@ export class NailsService {
   private mapNails(doc:DocumentData){
     return {
       id:0,
-      docId: doc['data']().docId,
+      docId: doc['id'],
       name:doc['data']().name,
       price:doc['data']().price,
       image:doc['data']().image,
@@ -98,32 +98,32 @@ export class NailsService {
     }
   }
 
-  async updateNailsOption(nails: Nails) {
-    try {
-      console.log(nails);
-      await this.firebase.updateDocument('nails', nails.docId, nails);
-    } catch (error) {
-      console.log(error);
-    } 
-  }
-
-  // async updateNailsOption(nails: Nails){
-  //   var _nails = {
-  //     id:0,
-  //     docId: nails.docId,
-  //     name:nails.name,
-  //     price:nails.price
-  //   };
-  //   if(nails['pictureFile']){
-  //     var response:FileUploaded = await this.uploadImage(nails['pictureFile']);
-  //     _nails['picture'] = response.file;
-  //   }
+  // async updateNailsOption(nails: Nails) {
   //   try {
-  //     await this.firebase.updateDocument('nails', nails.docId, _nails);  
+  //     console.log(nails);
+  //     await this.firebase.updateDocument('nails', nails.docId, nails);
   //   } catch (error) {
   //     console.log(error);
-  //   }
+  //   } 
   // }
+
+  async updateNailsOption(nails: Nails){
+    var _nails = {
+      id:0,
+      docId: nails.docId,
+      name:nails.name,
+      price:nails.price
+    };
+    if(nails['pictureFile']){
+      var response:FileUploaded = await this.uploadImage(nails['pictureFile']);
+      _nails['picture'] = response.file;
+    }
+    try {
+      await this.firebase.updateDocument('nails', nails.docId, _nails);  
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   //Delete an option of the nails.
   async deleteNailsOption(nails: Nails) {

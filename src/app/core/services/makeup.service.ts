@@ -8,40 +8,7 @@ import { FirebaseService, FileUploaded } from './firebase/firebase.service';
   providedIn: 'root'
 })
 export class MakeupService {
-  // private _makeupOptions: Makeup[] = [
-  //   {
-  //     id: 1,
-  //     name: "Wedding",
-  //     price: 199,
-  //     image: "./../../assets/icon_menu/WeddingMakeUp.png"
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Fiancaille ",
-  //     price: 50,
-  //     image: "./../../assets/icon_menu/FiancailleMakeUp.png"
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "Invited",
-  //     price: 29,
-  //     image: "./../../assets/icon_menu/InvitedMakeUp.png"
-  //   },
-  //   {
-  //     id: 4,
-  //     name: "Shooting",
-  //     price: 25,
-  //     image: "./../../assets/icon_menu/ShootingMakeUp.png"
-  //   },
-  //   {
-  //     id: 5,
-  //     name: "Halloween",
-  //     price: 25.5,
-  //     image: "./../../assets/icon_menu/HalloweenMakeUp.png"
-  //   },
-  // ]
 
-  //id : number = this._makeupOptions.length + 1
   private _makeupSubject: BehaviorSubject<Makeup[]> = new BehaviorSubject([])
   public makeupOptionsList$ = this._makeupSubject.asObservable();
 
@@ -65,7 +32,7 @@ export class MakeupService {
   private mapMakeup(doc:DocumentData){
     return {
       id:0,
-      docId: doc['data'].docId,
+      docId: doc['id'],
       name: doc['data']().name,
       price: doc['data']().price,
       image: doc['data']().image,
@@ -133,32 +100,32 @@ export class MakeupService {
     }
   }
 
-  async updateMakeupOption(makeup: Makeup) {
-    try {
-      console.log(makeup);
-      await this.firebase.updateDocument('makeup', makeup.docId, makeup);
-    } catch (error) {
-      console.log(error);
-    } 
-  }
-
-  // async updateMakeupOption(makeup: Makeup){
-  //   var _makeup = {
-  //     id:0,
-  //     docId: makeup.docId,
-  //     name:makeup.name,
-  //     price:makeup.price
-  //   };
-  //   if(makeup['pictureFile']){
-  //     var response:FileUploaded = await this.uploadImage(makeup['pictureFile']);
-  //     _makeup['picture'] = response.file;
-  //   }
+  // async updateMakeupOption(makeup: Makeup) {
   //   try {
-  //     await this.firebase.updateDocument('makeup', makeup.docId, _makeup);  
+  //     console.log(makeup);
+  //     await this.firebase.updateDocument('makeup', makeup.docId, makeup);
   //   } catch (error) {
   //     console.log(error);
-  //   }
+  //   } 
   // }
+
+  async updateMakeupOption(makeup: Makeup){
+    var _makeup = {
+      id:0,
+      docId: makeup.docId,
+      name:makeup.name,
+      price:makeup.price
+    };
+    if(makeup['pictureFile']){
+      var response:FileUploaded = await this.uploadImage(makeup['pictureFile']);
+      _makeup['picture'] = response.file;
+    }
+    try {
+      await this.firebase.updateDocument('makeup', makeup.docId, _makeup);  
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   //Delete an option of the makeup.
   async deleteMakeupOption(makeup: Makeup) {

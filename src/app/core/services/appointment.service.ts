@@ -18,20 +18,19 @@ export class AppointmentService {
 
     unsubscr;
     constructor(
-      private api:ApiService,
       private firebase:FirebaseService
     ) { 
-      this.unsubscr = this.firebase.subscribeToCollection('appointment',this._appointmentSubject, this.mapAssignment);
+      this.unsubscr = this.firebase.subscribeToCollection('appointment',this._appointmentSubject, this.mapAppointment);
     }
 
     ngOnDestroy(): void {
       this.unsubscr();
     }
   
-    private mapAssignment(doc:DocumentData){
+    private mapAppointment(doc:DocumentData){
       return {
         id:0,
-        docId:doc['data']().docId,
+        docId:doc['id'],
         hairdressigId:doc['data']().hairdressigId,
         makeupId:doc['data']().makeupId,
         nailsId:doc['data']().nailsId,
@@ -88,42 +87,35 @@ export class AppointmentService {
       
     }
 
-  //   getAppointmentById(id: number){
-  //     return this._appointment.find(a => a.id == id);
-  //   }
+    getAppointmentsBy(field, value){
+      return new Promise<Appointment[]>(async (resolve, reject)=>{
+        try {
+          var assignments = (await this.firebase.getDocumentsBy('appointment', field, value)).map<Appointment>(doc=>{
+            return {
+              id:0,
+              docId:doc.id,
+              personId:doc.data['hairdressigId'],
+              taskId:doc.data['makeupId'],
+              createdAt:doc.data['createdAt'],
+            dateTime:doc.data['dateTime']
+            }
+          });
+          resolve(assignments);  
+        } catch (error) {
+          reject(error);
+        }
+      });
+    }
+  
+    getAppointmentByMakeupId(makeupId: string):Promise<Appointment[]>{
+      return this.getAppointmentsBy('makeupId', makeupId)
+    }
 
-  //   getAppointmentByMakeupId(id: number){
-  //     return this._appointment.find(a => a.makeupId == id)
-  //   }
+    getAppointmentByhairdressingId(hairdressigId:string) {
+      return this.getAppointmentsBy('hairdressigId', hairdressigId)
+    }
+    getAppointmentByNailsId(nailsId:string){
+      return this.getAppointmentsBy('nailsId', nailsId)
+    }
 
-  //   getAppointmentByhairdressingId(id: number) {
-  //     return this._appointment.find(a => a.hairdressigId == id)
-  //   }
-  //   getAppointmentByNailsId(id: number){
-  //     return this._appointment.find(a => a.nailsId == id)
-  //   }
-
-  //   deleteAppointmentById(id: number) {
-  //     this._appointment = this._appointment.filter(a => a.id != id);
-  //     this._appointmentSubject.next(this._appointment)
-  //   }
-
-  //   addAppointment(appointment: Appointment) {
-  //     appointment.id = this.id++;
-  //     appointment.crearAt = this.momentjs().toISOString();
-  //     this._appointment.push(appointment);
-  //     this._appointmentSubject.next(this._appointment)
-  //   }
-
-  //   updateAppointment(appointment: Appointment){
-  //     var _appointment = this._appointment.find(a=>a.id==appointment.id);
-  //     if(_appointment){
-  //       _appointment.hairdressigId = appointment.hairdressigId;
-  //       _appointment.makeupId = appointment.makeupId;
-  //       _appointment.nailsId = appointment.nailsId;
-  //       _appointment.crearAt = appointment.crearAt;
-  //       _appointment.dateTime = appointment.dateTime;
-  //   }
-  //   this._appointmentSubject.next(this._appointment)
-  // }
 }

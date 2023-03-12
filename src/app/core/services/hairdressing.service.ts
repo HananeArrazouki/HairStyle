@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { DocumentData } from 'firebase/firestore';
 import { BehaviorSubject } from 'rxjs';
 import { Hairdressing } from '../interfaces/hairdressing';
-import { ApiService } from './api.service';
 import { FileUploaded, FirebaseService } from './firebase/firebase.service';
 
 @Injectable({
@@ -34,7 +33,7 @@ export class HairdressingService {
     //console.log(doc)
     return {
       id:0,
-      docId:doc['data']().docId,
+      docId:doc['id'],
       name:doc['data']().name,
       price:doc['data']().price,
       image:doc['data']().image,
@@ -84,14 +83,32 @@ export class HairdressingService {
     }
   }
 
-  async updateHairdressingOption(hairdressing: Hairdressing) {
+  async updateHairdressingOption(haidressing: Hairdressing){
+    var _haidressing = {
+      id:0,
+      docId: haidressing.docId,
+      name:haidressing.name,
+      price:haidressing.price
+    };
+    if(haidressing['pictureFile']){
+      var response:FileUploaded = await this.uploadImage(haidressing['pictureFile']);
+      _haidressing['picture'] = response.file;
+    }
     try {
-      console.log(hairdressing);
-      await this.firebase.updateDocument('hairdressing', hairdressing.docId, hairdressing);
+      await this.firebase.updateDocument('hairdressing', haidressing.docId, _haidressing);  
     } catch (error) {
       console.log(error);
-    } 
+    }
   }
+
+  // async updateHairdressingOption(hairdressing: Hairdressing) {
+  //   try {
+  //     console.log(hairdressing);
+  //     await this.firebase.updateDocument('hairdressing', hairdressing.docId, hairdressing);
+  //   } catch (error) {
+  //     console.log(error);
+  //   } 
+  // }
 
 
   //Delete an option of the hairdressing.

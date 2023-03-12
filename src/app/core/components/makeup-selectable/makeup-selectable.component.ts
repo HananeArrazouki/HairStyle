@@ -17,12 +17,12 @@ const MAKEUP_PROFILE_VALUE_ACCESSOR: any = {
 })
 export class MakeupSelectableComponent implements ControlValueAccessor {
 
-  makeupSelected : Makeup | undefined
+  makeupSelected : Makeup = null
   propagateChange = (_:any) => { }
 
   constructor( private makeupService: MakeupService) { }
 
-  getHairdressingList() {
+  getMakeupList() {
     return this.makeupService.makeupOptionsList$
   } 
 
@@ -39,6 +39,5 @@ export class MakeupSelectableComponent implements ControlValueAccessor {
   setDisabledState?(isDisabled: boolean): void {
     throw new Error('Method not implemented.');
   }
-
 
 }

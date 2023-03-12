@@ -3,9 +3,6 @@ import { AlertController, ModalController } from '@ionic/angular';
 import { AppointmentFormComponent } from 'src/app/core/components/appointment-form/appointment-form.component';
 import { Appointment } from 'src/app/core/interfaces/appointment';
 import { AppointmentService } from 'src/app/core/services/appointment.service';
-import { HairdressingService } from 'src/app/core/services/hairdressing.service';
-import { MakeupService } from 'src/app/core/services/makeup.service';
-import { NailsService } from 'src/app/core/services/nails.service';
 
 @Component({
   selector: 'app-appointments',
@@ -41,9 +38,9 @@ export class AppointmentsPage {
 
   
 
-  async onDelete(appointment: Appointment) {
+  async onDelete(appointment) {
     const alert = await this.alertController.create({
-      mode: 'ios',
+      //mode: 'ios',
       header: '¿Are you sure you want to delete this appointment?',
       buttons: [
         {
@@ -73,7 +70,7 @@ export class AppointmentsPage {
     this.presentAppointmentForm(appointment);
   }
 
-  async presentAppointmentForm(appointment: Appointment | null) {
+  async presentAppointmentForm(appointment: Appointment) {
     const modalController = await this.modalController.create({
       component: AppointmentFormComponent,
       componentProps: {

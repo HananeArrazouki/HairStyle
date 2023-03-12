@@ -7,7 +7,7 @@
     placeholder="{{'form.selectOption' | translate}}" 
     [multiple]="true"
     [(ngModel)]="makeupSelected">
-      <ng-container  *ngFor="let op of getHairdressingList() | async">
+      <ng-container  *ngFor="let op of getMakeupList() | async">
         <ion-select-option value="{{op.id}}">{{op.name}} {{op.price | currency:'EUR'}}</ion-select-option>
       </ng-container>       
     </ion-select>

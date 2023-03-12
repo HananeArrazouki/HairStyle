@@ -1,5 +1,6 @@
 import { Component, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { IonAccordionGroup } from '@ionic/angular';
 import { Hairdressing } from '../../interfaces/hairdressing';
 import { HairdressingService } from '../../services/hairdressing.service';
 
@@ -17,28 +18,60 @@ const HAIRDRESSING_PROFILE_VALUE_ACCESSOR: any = {
 })
 export class HairdressingSelectableComponent implements ControlValueAccessor {
 
-  hairdressingSelected : Hairdressing | undefined
+  hairdressingSelected : Hairdressing = null
   propagateChange = (_:any) => { }
   isDisabled:boolean = false;
 
   constructor( private hairDressingService: HairdressingService) { }
+  
 
-  getHairdressingList() {
-    return this.hairDressingService.hairdressingOptionsList$
-  } 
+  // getHairdressingList() {
+  //   return this.hairDressingService.hairdressingOptionsList$
+  // } 
 
-  async writeValue(hairdressingId: any) {
-    this.hairdressingSelected = await this.hairDressingService.getHairDressingOptionsById(hairdressingId);
+  // async writeValue(hairdressingId: any) {
+  //   this.hairdressingSelected = await this.hairDressingService.getHairDressingOptionsById(hairdressingId);
+  // }
+
+  // registerOnChange(fn: any): void {
+  //   throw new Error('Method not implemented.');
+  // }
+
+  // registerOnTouched(fn: any): void { }
+
+  // setDisabledState?(isDisabled: boolean): void {
+  //   throw new Error('Method not implemented.');
+  // }
+
+  async writeValue(obj: any) {
+    try {
+      this.hairdressingSelected = await this.hairDressingService.getHairDressingOptionsById(obj);
+    } catch (error) {
+      console.log("No se ha podido recupera los datos: " + error);
+    }
   }
 
   registerOnChange(fn: any): void {
-    throw new Error('Method not implemented.');
+    this.propagateChange = fn;
   }
 
-  registerOnTouched(fn: any): void { }
+  registerOnTouched(fn: any): void {
+  }
 
   setDisabledState?(isDisabled: boolean): void {
-    throw new Error('Method not implemented.');
+    this.isDisabled = isDisabled;
   }
+
+  getHairdressingList() {
+    return this.hairDressingService.hairdressingOptionsList$;
+  }
+
+  onItemClicked(hairdressing: Hairdressing, accordion: IonAccordionGroup) {
+    this.hairdressingSelected = hairdressing;
+    accordion.value = '';
+    this.propagateChange(this.hairdressingSelected.docId);
+  }
+
+  
 
 }

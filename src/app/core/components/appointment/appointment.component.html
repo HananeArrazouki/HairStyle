@@ -1,7 +1,12 @@
 <ion-item-sliding #sliding [disabled]="!isLowResolution()">
   <ion-item >
+    <ion-label>{{(hairdressing$ | async)?.name}}</ion-label>
+    <ion-icon name="link-outline"></ion-icon>
+    <ion-label>{{(makeup$ | async)?.name}}</ion-label>
+    <ion-icon name="link-outline"></ion-icon>
+    <ion-label>{{(nails$ | async)?.name}}</ion-label>
 
-    <!-- <ion-label class="ion-text-center ion-text-wrap">{{assignment?.dateTime}}</ion-label> -->
+    <!-- <ion-label class="ion-text-center ion-text-wrap">{{appointment?.dateTime}}</ion-label> -->
     <ion-button class="item-expanded" *ngIf="!isLowResolution()" slot="end" fill="clear" (click)="onEditClick(sliding)">
       <div class="vertical">
         <ion-icon name="create" ></ion-icon>
