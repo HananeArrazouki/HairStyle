@@ -31,7 +31,7 @@ export class HairdressingService {
   }
 
   private mapHairdressing(doc:DocumentData){
-    console.log(doc)
+    //console.log(doc)
     return {
       id:0,
       docId:doc['data']().docId,
@@ -73,24 +73,6 @@ export class HairdressingService {
     });
   }
 
-  // async addHairdressingOption(hairdressing: Hairdressing) {
-  //   var _hairDressing = {
-  //     id:0,
-  //     docId: hairdressing.docId,
-  //     name:hairdressing.name,
-  //     price:hairdressing.price,
-  //   };
-  //   if(hairdressing['pictureFile']){
-  //     var response = await this.uploadImage(hairdressing['pictureFile']);
-  //     _hairDressing['picture'] = response.image;
-  //   }
-  //   try {
-  //     await this.firebase.createDocument('hairdressing', _hairDressing);  
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
-
   async addHairdressingOption(haidressing: Hairdressing) {
     try {
       await this.firebase.createDocument("hairdressing", haidressing).then((docId) => {
@@ -111,23 +93,6 @@ export class HairdressingService {
     } 
   }
 
-  // async updateHairdressingOption(hairdressing: Hairdressing){
-  //   var _hairDressing = {
-  //     id:0,
-  //     docId: hairdressing.docId,
-  //     name:hairdressing.name,
-  //     price:hairdressing.price
-  //   };
-  //   if(hairdressing['pictureFile']){
-  //     var response:FileUploaded = await this.uploadImage(hairdressing['pictureFile']);
-  //     _hairDressing['picture'] = response.file;
-  //   }
-  //   try {
-  //     await this.firebase.updateDocument('hairdressing', hairdressing.docId, _hairDressing);  
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
 
   //Delete an option of the hairdressing.
   async deleteHairdressingOption(hairdressing: Hairdressing) {

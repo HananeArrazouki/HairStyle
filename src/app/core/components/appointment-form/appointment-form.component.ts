@@ -19,7 +19,7 @@ export class AppointmentFormComponent {
       this.form?.controls['hairdressigId'].setValue(appointment.hairdressigId);
       this.form?.controls['makeupId'].setValue(appointment.makeupId);
       this.form?.controls['nailsId'].setValue(appointment.nailsId);
-      this.form.controls['dateTime'].setValue(appointment.dateTime);
+      this.form?.controls['dateTime'].setValue(appointment.dateTime);
       this.mode = "Edit";
     }
   }
@@ -29,7 +29,8 @@ export class AppointmentFormComponent {
     private formBuilder: FormBuilder,) { 
 
       this.form = this.formBuilder.group({
-        id: [0],
+        id: [null],
+        docId: [''],
         hairdressigId: [''],
         makeupId: [''],
         nailsId: [''],

@@ -56,7 +56,7 @@ export class AppointmentsPage {
           text: 'Yes',
           role: 'confirm',
           handler: () => {
-            this.appointmentService.deleteAppointmentById(appointment.docId)
+            this.appointmentService.deleteAppointmentById(appointment)
           },
         },
       ],

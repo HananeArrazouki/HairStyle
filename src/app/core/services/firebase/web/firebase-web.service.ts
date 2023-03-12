@@ -42,7 +42,7 @@ export class FirebaseWebService extends FirebaseService implements OnDestroy{
       else{
         this._isLogged.next(false);
       }
-      console.log(user);
+      //console.log(user);
     });
   }
 
@@ -106,17 +106,29 @@ export class FirebaseWebService extends FirebaseService implements OnDestroy{
 
   public createDocument(collectionName:string, data:any):Promise<string>{
     return new Promise((resolve,reject)=>{
-      const collectionRef = collection(this.db, collectionName);
-      addDoc(collectionRef, data).then(docRef => resolve(docRef.id)
-      ).catch(err =>  reject(err));
+      try {
+        const collectionRef = collection(this.db, collectionName);
+        addDoc(collectionRef, data).then(docRef => resolve(docRef.id)
+        ).catch(err =>  reject(err));
+      }catch {
+        console.log("error en createDocument");
+        
+      }
+      
     });
   }
 
   public createDocumentWithId(collectionName:string, data:any, docId:string):Promise<void>{
     return new Promise((resolve,reject)=>{
-      const docRef = doc(this.db, collectionName, docId);
-      setDoc(docRef, data).then(docRef => resolve()
-      ).catch(err =>  reject(err));
+      try {
+        const docRef = doc(this.db, collectionName, docId);
+        setDoc(docRef, data).then(docRef => resolve()
+        ).catch(err =>  reject(err));
+      }catch {
+        console.log("error en creatDocumentWithId");
+        
+      }
+      
     });
   }
 
@@ -136,7 +148,7 @@ export class FirebaseWebService extends FirebaseService implements OnDestroy{
     });
   }
 
-  public getDocument(collectionName:string, document:string):Promise<FirebaseDocument>{
+  public getDocument(collectionName: string, document: string):Promise<FirebaseDocument>{
     return new Promise(async (resolve, reject)=>{
       const docRef = doc(this.db, collectionName, document);
       const docSnap = await getDoc(docRef);
