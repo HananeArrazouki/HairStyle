@@ -47,7 +47,7 @@ export class NailsService {
         var nails = (await this.firebase.getDocument('nails', id));
         resolve({
           id:0,
-          docId: nails.data['docId'],
+          docId: nails.id,
           name: nails.data['name'],
           price:nails.data['price'],
           image:nails.data['image'], 

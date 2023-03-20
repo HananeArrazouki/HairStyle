@@ -15,12 +15,12 @@ export class AppointmentFormComponent {
 
   @Input('appointment') set appointment(appointment: Appointment) {
     if (appointment) {
-      this.form?.controls['id'].setValue(appointment.id);
-      this.form?.controls['docId'].setValue(appointment.docId);
-      this.form?.controls['hairdressigId'].setValue(appointment.hairdressigId);
-      this.form?.controls['makeupId'].setValue(appointment.makeupId);
-      this.form?.controls['nailsId'].setValue(appointment.nailsId);
-      this.form?.controls['dateTime'].setValue(appointment.dateTime);
+      this.form.controls['id'].setValue(appointment.id);
+      //this.form.controls['docId'].setValue(appointment.docId);
+      this.form.controls['hairdressigId'].setValue(appointment.hairdressigId);
+      this.form.controls['makeupId'].setValue(appointment.makeupId);
+      this.form.controls['nailsId'].setValue(appointment.nailsId);
+      this.form.controls['dateTime'].setValue(appointment.dateTime);
       this.mode = "Edit";
     }
   }
@@ -30,8 +30,7 @@ export class AppointmentFormComponent {
     private formBuilder: FormBuilder,) { 
 
       this.form = this.formBuilder.group({
-        id: [null],
-        docId: [''],
+        id: [0],
         hairdressigId: [''],
         makeupId: [''],
         nailsId: [''],
@@ -46,6 +45,10 @@ export class AppointmentFormComponent {
 
   onDismiss() {
     this.modalController.dismiss(null, 'cancel');
+  }
+
+  onChangeDateTime(dateTime){
+    this.form.controls['dateTime'].setValue(dateTime);
   }
 
 }

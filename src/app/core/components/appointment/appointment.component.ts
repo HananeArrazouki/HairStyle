@@ -18,6 +18,7 @@ import { LocalService } from '../../services/local.service';
 })
 export class AppointmentComponent {
 
+  
   private _appointment: Appointment;
 
   @Output() onEdit = new EventEmitter;

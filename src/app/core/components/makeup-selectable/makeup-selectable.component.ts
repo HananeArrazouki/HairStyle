@@ -19,6 +19,7 @@ export class MakeupSelectableComponent implements ControlValueAccessor {
 
   makeupSelected : Makeup = null
   propagateChange = (_:any) => { }
+  isDisabled:boolean = false;
 
   constructor( private makeupService: MakeupService) { }
 
@@ -31,13 +32,14 @@ export class MakeupSelectableComponent implements ControlValueAccessor {
   }
   
   registerOnChange(fn: any): void {
-    throw new Error('Method not implemented.');
+    this.propagateChange = fn;
   }
+
   registerOnTouched(fn: any): void {
-    throw new Error('Method not implemented.');
   }
+
   setDisabledState?(isDisabled: boolean): void {
-    throw new Error('Method not implemented.');
+    this.isDisabled = isDisabled;
   }
 
 }

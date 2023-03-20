@@ -10,7 +10,7 @@ export class MakeupComponent {
 
   @Output() onEdit = new EventEmitter;
   @Output() onDelete = new EventEmitter;
-  @Input() makeup : Makeup = {id: 0, name: "", price: 0, image: ""}
+  @Input() makeup : Makeup = {id: 0, docId: "", name: "", price: 0, image: ""}
   @Input() mode: String | undefined;
   
   onEditClick(){

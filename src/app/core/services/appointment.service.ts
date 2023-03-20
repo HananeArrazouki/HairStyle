@@ -1,17 +1,13 @@
 import { Injectable } from '@angular/core';
 import { DocumentData } from 'firebase/firestore';
-import * as moment from 'moment';
 import { BehaviorSubject } from 'rxjs';
 import { Appointment } from '../interfaces/appointment';
-import { ApiService } from './api.service';
 import { FirebaseService } from './firebase/firebase.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppointmentService {
-
-  momentjs:any = moment;
     
     private _appointmentSubject: BehaviorSubject<Appointment[]> = new BehaviorSubject([])
     public appointmentList$ = this._appointmentSubject.asObservable();
@@ -43,7 +39,7 @@ export class AppointmentService {
       return this._appointmentSubject.value;
     }
 
-    getAppointmentById(id:string){
+    getAppointmentById(id: string){
       return new Promise<Appointment>(async (resolve, reject)=>{
         try {
           var response = (await this.firebase.getDocument('appointment', id));
@@ -60,6 +56,37 @@ export class AppointmentService {
           reject(error);
         }
       });
+    }
+
+    getAppointmentsBy(field, value){
+      return new Promise<Appointment[]>(async (resolve, reject)=>{
+        try {
+          var appointment = (await this.firebase.getDocumentsBy('appointment', field, value)).map<Appointment>(doc=>{
+            return {
+              id:0,
+              docId:doc.id,
+              personId:doc.data['hairdressigId'],
+              taskId:doc.data['makeupId'],
+              createdAt:doc.data['createdAt'],
+            dateTime:doc.data['dateTime']
+            }
+          });
+          resolve(appointment);  
+        } catch (error) {
+          reject("error getAppointmentsBy"+error);
+        }
+      });
+    }
+  
+    getAppointmentByMakeupId(makeupId: string):Promise<Appointment[]>{
+      return this.getAppointmentsBy('makeupId', makeupId)
+    }
+
+    getAppointmentByhairdressingId(hairdressigId:string) {
+      return this.getAppointmentsBy('hairdressigId', hairdressigId)
+    }
+    getAppointmentByNailsId(nailsId:string){
+      return this.getAppointmentsBy('nailsId', nailsId)
     }
 
     async deleteAppointmentById(id:string){
@@ -86,36 +113,4 @@ export class AppointmentService {
       }
       
     }
-
-    getAppointmentsBy(field, value){
-      return new Promise<Appointment[]>(async (resolve, reject)=>{
-        try {
-          var assignments = (await this.firebase.getDocumentsBy('appointment', field, value)).map<Appointment>(doc=>{
-            return {
-              id:0,
-              docId:doc.id,
-              personId:doc.data['hairdressigId'],
-              taskId:doc.data['makeupId'],
-              createdAt:doc.data['createdAt'],
-            dateTime:doc.data['dateTime']
-            }
-          });
-          resolve(assignments);  
-        } catch (error) {
-          reject(error);
-        }
-      });
-    }
-  
-    getAppointmentByMakeupId(makeupId: string):Promise<Appointment[]>{
-      return this.getAppointmentsBy('makeupId', makeupId)
-    }
-
-    getAppointmentByhairdressingId(hairdressigId:string) {
-      return this.getAppointmentsBy('hairdressigId', hairdressigId)
-    }
-    getAppointmentByNailsId(nailsId:string){
-      return this.getAppointmentsBy('nailsId', nailsId)
-    }
-
 }

@@ -18,7 +18,7 @@ const DATETIME_PROFILE_VALUE_ACCESSOR: any = {
 })
 export class DateTimeSelectableComponent implements OnDestroy, ControlValueAccessor {
 
-  isDisabled: boolean | undefined;
+  isDisabled: boolean = false;
   selectedDateTime: any;
   propagateChange = (_:any) => { }
   hairDressingSrv: any;

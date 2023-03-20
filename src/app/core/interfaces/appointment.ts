@@ -1,6 +1,6 @@
 export interface Appointment {
           id?: number
-          docId?: string,
+          docId: string,
           hairdressigId?: string;
           makeupId?: string;
           nailsId?: string;

@@ -1,6 +1,6 @@
 export interface Hairdressing {
           id: number,
-          docId?: string,
+          docId: string,
           name: string,
           price: number,
           image?: string

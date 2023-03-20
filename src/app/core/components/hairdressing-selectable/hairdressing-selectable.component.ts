@@ -23,25 +23,6 @@ export class HairdressingSelectableComponent implements ControlValueAccessor {
   isDisabled:boolean = false;
 
   constructor( private hairDressingService: HairdressingService) { }
-  
-
-  // getHairdressingList() {
-  //   return this.hairDressingService.hairdressingOptionsList$
-  // } 
-
-  // async writeValue(hairdressingId: any) {
-  //   this.hairdressingSelected = await this.hairDressingService.getHairDressingOptionsById(hairdressingId);
-  // }
-
-  // registerOnChange(fn: any): void {
-  //   throw new Error('Method not implemented.');
-  // }
-
-  // registerOnTouched(fn: any): void { }
-
-  // setDisabledState?(isDisabled: boolean): void {
-  //   throw new Error('Method not implemented.');
-  // }
 
   async writeValue(obj: any) {
     try {
@@ -71,7 +52,5 @@ export class HairdressingSelectableComponent implements ControlValueAccessor {
     accordion.value = '';
     this.propagateChange(this.hairdressingSelected.docId);
   }
-
-  
 
 }

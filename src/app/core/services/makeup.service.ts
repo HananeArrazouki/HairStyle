@@ -49,7 +49,7 @@ export class MakeupService {
         var makeup = (await this.firebase.getDocument('makeup', id));
         resolve({
           id:0,
-          docId: makeup.data['docId'],
+          docId: makeup.id,
           name: makeup.data['name'],
           price:makeup.data['price'],
           image:makeup.data['image'], 

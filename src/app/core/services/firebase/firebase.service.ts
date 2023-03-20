@@ -1,11 +1,8 @@
 import { Injectable, OnDestroy } from "@angular/core";
 import { BehaviorSubject, Observable, of } from "rxjs";
-import { GoogleAuthProvider, FacebookAuthProvider, Unsubscribe, signInWithEmailAndPassword, User } from "firebase/auth";
-import { initializeApp,  deleteApp } from "firebase/app";
-import { getAnalytics, logEvent, setUserId, setUserProperties } from "firebase/analytics";
-import { getFirestore, addDoc, collection, updateDoc, doc, onSnapshot, getDoc, DocumentData} from "firebase/firestore";
-import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage";
-import { Auth, getAuth, OAuthCredential, createUserWithEmailAndPassword, signInWithCredential, signInAnonymously, SignInMethod, signInWithPopup, signOut, UserCredential } from "firebase/auth";
+import { Unsubscribe, User } from "firebase/auth";
+import { DocumentData} from "firebase/firestore";
+import { Auth, UserCredential } from "firebase/auth";
 
 export interface FileUploaded{
   path:string,
@@ -20,7 +17,7 @@ export interface FirebaseDocument{
 export interface FirestoreImages{
 
 }
-export const FIRESTORE_HAIRDRESSING_COLLECTION = 'tareando-tasks';
+export const FIRESTORE_HAIRDRESSING_COLLECTION = 'HairStyle-hairdressing';
 export const FIRESTORE_MAKEUP_COLLECTION = 'HairStyle-makeup';
 export const FIRESTORE_NAILS_COLLECTION = 'HairStyle-nails';
 export const FIRESTORE_APPOINTMENT_COLLECTION = 'HairStyle-appointment';

@@ -36,7 +36,29 @@ export class AppointmentsPage {
   //   return this.makeupService.getMakeupOptionsById(id)
   // }
 
-  
+  async presentAppointmentForm(appointment: Appointment) {
+    const modalController = await this.modalController.create({
+      component: AppointmentFormComponent,
+      componentProps: {
+        appointment: appointment
+      },
+      cssClass:"modal-full-right-side"
+    });
+    modalController.present();
+    modalController.onDidDismiss().then(result => {
+      if (result && result.data) {
+        switch (result.data.mode) {
+          case 'New':
+            this.appointmentService.addAppointment(result.data.appointment)
+            break;
+          case 'Edit':
+            this.appointmentService.updateAppointment(result.data.appointment);
+            break;
+          default:
+        }
+      }
+    });
+  }
 
   async onDelete(appointment) {
     const alert = await this.alertController.create({
@@ -66,35 +88,13 @@ export class AppointmentsPage {
     this.presentAppointmentForm(null);
   }
 
-  onEditAppointment(appointment: Appointment) {
+  onEditAppointment(appointment) {
     this.presentAppointmentForm(appointment);
   }
 
-  async presentAppointmentForm(appointment: Appointment) {
-    const modalController = await this.modalController.create({
-      component: AppointmentFormComponent,
-      componentProps: {
-        appointment: appointment
-      },
-      cssClass:"modal-full-right-side"
-    });
-    modalController.present();
-    modalController.onDidDismiss().then(result => {
-      if (result && result.data) {
-        switch (result.data.mode) {
-          case 'New':
-            this.appointmentService.addAppointment(result.data.appointment)
-            break;
-          case 'Edit':
-            this.appointmentService.updateAppointment(result.data.appointment);
-            break;
-          default:
-        }
-      }
-    });
-  }
+  
 
-  onDeleteAppointment(appointment: Appointment) {
+  onDeleteAppointment(appointment) {
     this.onDelete(appointment);
   }
 

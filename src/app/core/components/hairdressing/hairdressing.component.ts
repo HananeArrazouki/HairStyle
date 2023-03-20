@@ -10,7 +10,7 @@ export class HairdressingComponent {
 
   @Output() onEdit = new EventEmitter;
   @Output() onDelete = new EventEmitter;
-  @Input() hairdressing : Hairdressing = {id: 0, name: "", price: 0, image: ""}
+  @Input() hairdressing : Hairdressing = {id: 0, docId: "", name: "", price: 0, image: ""}
 
   
   onEditClick(){

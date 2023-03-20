@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
+import { BehaviorSubject } from 'rxjs';
 import { Hairdressing } from '../../interfaces/hairdressing';
 
 @Component({
@@ -13,8 +14,12 @@ export class HairdressingFormComponent {
   form: FormGroup;
   mode: "New" | "Edit" = "New";
 
+  currentImage = new BehaviorSubject<string>("");
+  currentImage$ = this.currentImage.asObservable();
+
   @Input('hairdressing') set hairdressing(hairdressing: Hairdressing) {
     if (hairdressing) {
+      this.form.controls['id'].setValue(hairdressing.id);
       this.form.controls['docId'].setValue(hairdressing.docId);
       this.form.controls['name'].setValue(hairdressing.name);
       this.form.controls['price'].setValue(hairdressing.price);
@@ -31,7 +36,7 @@ export class HairdressingFormComponent {
       id: [null],
       docId: [''],
       name: ['', [Validators.required]],
-      price: ['', [Validators.required]],
+      price: [0, [Validators.required]],
       image: ['']
     });
   }

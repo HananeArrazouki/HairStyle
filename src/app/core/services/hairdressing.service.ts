@@ -44,19 +44,19 @@ export class HairdressingService {
     return this._hairdressingSubject.value;
   }
 
-  public getHairDressingOptionsById(id: string):Promise<Hairdressing> {
+  getHairDressingOptionsById(id: string):Promise<Hairdressing> {
     return new Promise<Hairdressing>(async (resolve, reject)=>{
       try {
         var hairdressing = (await this.firebase.getDocument('hairdressing', id));
         resolve({
           id:0,
-          docId: hairdressing.data['docId'],
+          docId: hairdressing.id,
           name: hairdressing.data['name'],
           price:hairdressing.data['price'],
           image:hairdressing.data['image'], 
         });  
       }catch (error) {
-        reject(error);
+        reject("error getHairDressingOptionsById"+error);
       }
     });
   }
